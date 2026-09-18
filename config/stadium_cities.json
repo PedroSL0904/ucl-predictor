@@ -195,6 +195,34 @@
     "Baku": {
       "lat": 40.4093,
       "lon": 49.8671
+    },
+    "Como": {
+      "lat": 45.8081,
+      "lon": 9.0852
+    },
+    "Seville": {
+      "lat": 37.3891,
+      "lon": -5.9845
+    },
+    "Lens": {
+      "lat": 50.4322,
+      "lon": 2.8336
+    },
+    "Linz": {
+      "lat": 48.3069,
+      "lon": 14.2858
+    },
+    "Stavanger": {
+      "lat": 58.97,
+      "lon": 5.7331
+    },
+    "Bodo": {
+      "lat": 67.2804,
+      "lon": 14.4049
+    },
+    "Villarreal": {
+      "lat": 39.9378,
+      "lon": -0.1009
     }
   },
   "clubs": {
@@ -357,6 +385,62 @@
     "FC Kobenhavn": {
       "city": "Copenhagen",
       "pedigree": 40.5
+    },
+    "Manchester United": {
+      "city": "Manchester",
+      "pedigree": 92.0
+    },
+    "Como": {
+      "city": "Como",
+      "pedigree": 12.0
+    },
+    "Real Betis": {
+      "city": "Seville",
+      "pedigree": 38.0
+    },
+    "Lens": {
+      "city": "Lens",
+      "pedigree": 24.0
+    },
+    "AEK Athens": {
+      "city": "Athens",
+      "pedigree": 18.0
+    },
+    "Roma": {
+      "city": "Rome",
+      "pedigree": 78.0
+    },
+    "Fenerbahce": {
+      "city": "Istanbul",
+      "pedigree": 36.0
+    },
+    "Villarreal": {
+      "city": "Villarreal",
+      "pedigree": 64.0
+    },
+    "Napoli": {
+      "city": "Naples",
+      "pedigree": 70.0
+    },
+    "LASK": {
+      "city": "Linz",
+      "pedigree": 28.0
+    },
+    "Viking": {
+      "city": "Stavanger",
+      "pedigree": 14.0
+    },
+    "Sabah FC": {
+      "city": "Baku",
+      "pedigree": 10.0
+    },
+    "Bodo/Glimt": {
+      "city": "Bodo",
+      "pedigree": 32.0
+    },
+    "Slavia Praha": {
+      "city": "Prague",
+      "pedigree": 38.0
     }
   }
 }

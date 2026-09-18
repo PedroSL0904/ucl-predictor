@@ -6,16 +6,21 @@ from src.predictor import UCLPredictor
 from src.strategy.portfolio import generate_ucl_portfolio
 
 def predict_ucl_matchday(
-    season: str = "2024-25",
-    matchday: int = 1,
+    season: str = "2026-27",
+    matchday: Optional[int] = None,
     predictor: Optional[UCLPredictor] = None
 ) -> List[Dict[str, Any]]:
     pred_engine = predictor or UCLPredictor()
     df_feat = pd.read_parquet(settings.FEATURES_PATH)
     
-    matches_df = df_feat[(df_feat["season"] == season) & (df_feat["matchday"] == matchday)].copy()
+    if matchday is None:
+        unplayed = df_feat[(df_feat["season"] == season) & (df_feat["home_goals"].isna())]
+        target_md = int(unplayed["matchday"].min()) if not unplayed.empty else 1
+    else:
+        target_md = matchday
+
+    matches_df = df_feat[(df_feat["season"] == season) & (df_feat["matchday"] == target_md)].copy()
     if matches_df.empty:
-        # Fallback to stage search if matchday==0
         matches_df = df_feat[df_feat["season"] == season].head(18).copy()
 
     results = []

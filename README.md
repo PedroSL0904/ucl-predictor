@@ -2,9 +2,9 @@
 
 Pronóstico probabilístico y simulador del torneo completo de la UEFA Champions League, actualizado dinámicamente conforme avanza la competición.
 
-- **Temporada**: 2024-25
-- **Progreso del Torneo**: 189 de 189 partidos computados
-- **Ultima Actualizacion**: `2026-09-17 22:50 UTC`
+- **Temporada**: 2026-27
+- **Progreso del Torneo**: 18 de 144 partidos computados (Jornada 1 concluida)
+- **Ultima Actualizacion**: `2026-09-17 23:05 UTC`
 
 ---
 
@@ -14,18 +14,18 @@ Estimaciones calculadas mediante 10,000 simulaciones Monte Carlo considerando el
 
 | Posicion | Club | Campeon | Finalista | Semifinales |
 | :---: | :--- | :---: | :---: | :---: |
-| 1 | **Arsenal** | **17.3%** | 26.4% | 49.6% |
-| 2 | **Bayern Munich** | **13.8%** | 22.3% | 42.6% |
-| 3 | **Barcelona** | **13.0%** | 20.9% | 42.2% |
-| 4 | **Real Madrid** | **10.2%** | 17.8% | 35.9% |
-| 5 | **Inter** | **9.8%** | 17.9% | 37.5% |
-| 6 | **Paris SG** | **8.5%** | 16.4% | 32.0% |
-| 7 | **Liverpool** | **7.1%** | 14.8% | 29.8% |
-| 8 | **Aston Villa** | **5.1%** | 11.9% | 24.1% |
-| 9 | **Dortmund** | **4.3%** | 10.7% | 23.3% |
-| 10 | **PSV Eindhoven** | **3.0%** | 8.8% | 17.0% |
-| 11 | **Benfica** | **2.3%** | 7.6% | 15.8% |
-| 12 | **Lille** | **1.9%** | 7.1% | 15.2% |
+| 1 | **Arsenal** | **17.0%** | 25.3% | 48.4% |
+| 2 | **Man City** | **13.1%** | 21.2% | 42.2% |
+| 3 | **Barcelona** | **11.5%** | 19.5% | 37.2% |
+| 4 | **Bayern Munich** | **11.2%** | 19.6% | 39.3% |
+| 5 | **Inter** | **8.2%** | 16.9% | 33.1% |
+| 6 | **Real Madrid** | **7.8%** | 15.2% | 31.1% |
+| 7 | **Paris SG** | **7.0%** | 14.8% | 29.6% |
+| 8 | **Liverpool** | **5.9%** | 12.7% | 26.6% |
+| 9 | **Aston Villa** | **5.2%** | 10.8% | 21.4% |
+| 10 | **Dortmund** | **3.4%** | 9.0% | 20.4% |
+| 11 | **Roma** | **3.1%** | 9.3% | 18.5% |
+| 12 | **Porto** | **1.6%** | 5.2% | 10.2% |
 
 ---
 
@@ -36,88 +36,88 @@ Estructura de clasificacion oficial de la UEFA:
 - **Puestos 9 al 24**: Ronda eliminatoria de Play-offs (Dieciseisavos de final).
 - **Puestos 25 al 36**: Eliminados de la competicion.
 
-| Pos | Club | Pts Esperados | Octavos Directos (1-8) | Play-offs (9-24) | Eliminado (25-36) | Estatus Proyectado |
-| :---: | :--- | :---: | :---: | :---: | :---: | :--- |
-|  1 | **Paris SG** | 34.0 pts | 100.0% | 0.0% | 0.0% | Octavos Directos |
-|  2 | **Inter** | 33.0 pts | 100.0% | 0.0% | 0.0% | Octavos Directos |
-|  3 | **Arsenal** | 29.0 pts | 100.0% | 0.0% | 0.0% | Octavos Directos |
-|  4 | **Barcelona** | 29.0 pts | 100.0% | 0.0% | 0.0% | Octavos Directos |
-|  5 | **Real Madrid** | 27.0 pts | 100.0% | 0.0% | 0.0% | Octavos Directos |
-|  6 | **Bayern Munich** | 26.0 pts | 100.0% | 0.0% | 0.0% | Octavos Directos |
-|  7 | **Dortmund** | 26.0 pts | 100.0% | 0.0% | 0.0% | Octavos Directos |
-|  8 | **Aston Villa** | 25.0 pts | 100.0% | 0.0% | 0.0% | Octavos Directos |
-|  9 | **Liverpool** | 24.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 10 | **Atletico** | 18.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 11 | **PSV Eindhoven** | 18.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 12 | **Lille** | 17.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 13 | **Benfica** | 17.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 14 | **Feyenoord** | 17.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 15 | **Club Brugge** | 17.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 16 | **Leverkusen** | 16.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 17 | **Milan** | 16.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 18 | **Atalanta** | 15.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 19 | **Juventus** | 15.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 20 | **Monaco** | 14.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 21 | **Celtic** | 13.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 22 | **Brest** | 13.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 23 | **Sporting** | 12.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 24 | **Man City** | 11.0 pts | 0.0% | 100.0% | 0.0% | Play-offs |
-| 25 | **Dinamo Zagreb** | 11.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 26 | **Stuttgart** | 10.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 27 | **Shakhtar Donetsk** | 7.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 28 | **Bologna** | 6.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 29 | **Crvena Zvezda** | 6.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 30 | **Sturm Graz** | 6.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 31 | **Sparta Praha** | 4.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 32 | **RB Leipzig** | 3.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 33 | **Girona** | 3.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 34 | **Salzburg** | 3.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 35 | **Slovan Bratislava** | 0.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
-| 36 | **Young Boys** | 0.0 pts | 0.0% | 0.0% | 100.0% | Eliminado |
+| Pos | Club | PJ | Pts Actuales | Dif Gol | Pts Proyectados | Octavos Directos (1-8) | Play-offs (9-24) | Eliminado (25-36) | Estatus Proyectado |
+| :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+|  1 | **Man City** | 1 | 3 | +2.0 | 18.2 pts | 86.1% | 13.6% | 0.3% | Octavos Directos |
+|  2 | **Liverpool** | 1 | 3 | +1.0 | 17.0 pts | 77.0% | 22.7% | 0.3% | Octavos Directos |
+|  3 | **Barcelona** | 1 | 3 | +4.0 | 16.1 pts | 69.2% | 29.5% | 1.3% | Octavos Directos |
+|  4 | **Bayern Munich** | 1 | 3 | +5.0 | 15.8 pts | 66.0% | 31.9% | 2.0% | Octavos Directos |
+|  5 | **Aston Villa** | 1 | 3 | +1.0 | 15.9 pts | 64.5% | 34.0% | 1.6% | Octavos Directos |
+|  6 | **Arsenal** | 1 | 3 | +1.0 | 15.5 pts | 59.2% | 38.6% | 2.2% | Octavos Directos |
+|  7 | **Dortmund** | 1 | 3 | +1.0 | 15.1 pts | 53.6% | 42.9% | 3.5% | Octavos Directos |
+|  8 | **Real Madrid** | 1 | 3 | +1.0 | 14.9 pts | 51.6% | 45.1% | 3.2% | Octavos Directos |
+|  9 | **Paris SG** | 1 | 3 | +5.0 | 13.9 pts | 43.2% | 51.5% | 5.2% | Play-offs |
+| 10 | **Lens** | 1 | 3 | +1.0 | 13.9 pts | 39.0% | 53.4% | 7.6% | Play-offs |
+| 11 | **Como** | 1 | 3 | +3.0 | 12.5 pts | 25.7% | 62.8% | 11.6% | Play-offs |
+| 12 | **Inter** | 1 | 0 | -1.0 | 11.8 pts | 16.7% | 65.3% | 18.0% | Play-offs |
+| 13 | **Porto** | 1 | 0 | -2.0 | 11.9 pts | 18.4% | 61.6% | 20.1% | Play-offs |
+| 14 | **Roma** | 1 | 1 | 0.0 | 11.5 pts | 17.4% | 60.6% | 21.9% | Play-offs |
+| 15 | **Stuttgart** | 1 | 3 | +2.0 | 11.1 pts | 15.1% | 59.6% | 25.3% | Play-offs |
+| 16 | **Real Betis** | 1 | 3 | +1.0 | 10.5 pts | 8.3% | 58.6% | 33.1% | Play-offs |
+| 17 | **Villarreal** | 1 | 0 | -1.0 | 10.3 pts | 7.9% | 59.5% | 32.6% | Play-offs |
+| 18 | **Shakhtar Donetsk** | 1 | 1 | 0.0 | 10.3 pts | 7.8% | 58.7% | 33.5% | Play-offs |
+| 19 | **Manchester United** | 1 | 3 | +4.0 | 10.1 pts | 7.8% | 58.3% | 33.9% | Play-offs |
+| 20 | **RB Leipzig** | 1 | 0 | -3.0 | 10.2 pts | 8.3% | 54.8% | 36.9% | Play-offs |
+| 21 | **AEK Athens** | 1 | 3 | +1.0 | 10.1 pts | 7.5% | 53.4% | 39.1% | Play-offs |
+| 22 | **Sporting** | 1 | 3 | +2.0 | 9.7 pts | 6.1% | 52.8% | 41.0% | Play-offs |
+| 23 | **Club Brugge** | 1 | 0 | -1.0 | 9.6 pts | 5.4% | 54.4% | 40.2% | Play-offs |
+| 24 | **Napoli** | 1 | 0 | -1.0 | 9.6 pts | 6.2% | 50.9% | 42.9% | Play-offs |
+| 25 | **PSV Eindhoven** | 1 | 1 | 0.0 | 9.2 pts | 5.3% | 45.9% | 48.9% | Eliminado |
+| 26 | **Lille** | 1 | 0 | -1.0 | 9.1 pts | 4.8% | 46.7% | 48.5% | Eliminado |
+| 27 | **Slovan Bratislava** | 1 | 0 | -5.0 | 9.5 pts | 4.8% | 47.4% | 47.9% | Eliminado |
+| 28 | **Bodo/Glimt** | 1 | 0 | -5.0 | 8.9 pts | 3.4% | 41.3% | 55.3% | Eliminado |
+| 29 | **Atletico** | 1 | 0 | -1.0 | 8.5 pts | 3.1% | 39.6% | 57.3% | Eliminado |
+| 30 | **Fenerbahce** | 1 | 1 | 0.0 | 7.7 pts | 1.6% | 32.2% | 66.1% | Eliminado |
+| 31 | **Slavia Praha** | 1 | 0 | -1.0 | 7.7 pts | 2.0% | 32.1% | 65.8% | Eliminado |
+| 32 | **Feyenoord** | 1 | 0 | -4.0 | 7.8 pts | 1.9% | 30.8% | 67.3% | Eliminado |
+| 33 | **Galatasaray SK** | 1 | 0 | -2.0 | 7.6 pts | 2.1% | 30.7% | 67.2% | Eliminado |
+| 34 | **Sabah FC** | 1 | 0 | -4.0 | 7.8 pts | 1.6% | 31.0% | 67.4% | Eliminado |
+| 35 | **Viking** | 1 | 0 | -2.0 | 7.2 pts | 0.7% | 27.4% | 72.0% | Eliminado |
+| 36 | **LASK** | 1 | 0 | -1.0 | 6.5 pts | 0.5% | 20.2% | 79.2% | Eliminado |
 
 ---
 
 ## 3. Proyeccion del Cuadro Eliminatorio
 
 ### Cruces Proyectados de Play-offs (Dieciseisavos)
-- **Serie 1**: Liverpool vs Man City — *Pase proyectado: **Man City** (63.1%)*
-- **Serie 2**: Atletico vs Sporting — *Pase proyectado: **Atletico** (50.0%)*
-- **Serie 3**: PSV Eindhoven vs Brest — *Pase proyectado: **PSV Eindhoven** (72.3%)*
-- **Serie 4**: Lille vs Celtic — *Pase proyectado: **Lille** (72.0%)*
-- **Serie 5**: Benfica vs Monaco — *Pase proyectado: **Benfica** (56.8%)*
-- **Serie 6**: Feyenoord vs Juventus — *Pase proyectado: **Juventus** (69.7%)*
-- **Serie 7**: Club Brugge vs Atalanta — *Pase proyectado: **Atalanta** (58.6%)*
-- **Serie 8**: Leverkusen vs Milan — *Pase proyectado: **Milan** (52.1%)*
+- **Serie 1**: Paris SG vs Napoli — *Pase proyectado: **Paris SG** (62.5%)*
+- **Serie 2**: Lens vs Club Brugge — *Pase proyectado: **Lens** (53.5%)*
+- **Serie 3**: Como vs Sporting — *Pase proyectado: **Como** (79.0%)*
+- **Serie 4**: Inter vs AEK Athens — *Pase proyectado: **Inter** (88.4%)*
+- **Serie 5**: Porto vs RB Leipzig — *Pase proyectado: **Porto** (50.5%)*
+- **Serie 6**: Roma vs Manchester United — *Pase proyectado: **Roma** (83.7%)*
+- **Serie 7**: Stuttgart vs Shakhtar Donetsk — *Pase proyectado: **Stuttgart** (76.8%)*
+- **Serie 8**: Real Betis vs Villarreal — *Pase proyectado: **Villarreal** (55.1%)*
 
 ### Cabezas de Serie Proyectados (Octavos de Final)
-Clubs clasificados directamente entre los 8 primeros: **Paris SG, Inter, Arsenal, Barcelona, Real Madrid, Bayern Munich, Dortmund, Aston Villa**.
+Clubs clasificados directamente entre los 8 primeros: **Man City, Liverpool, Barcelona, Bayern Munich, Aston Villa, Arsenal, Dortmund, Real Madrid**.
 
 ---
 
-## 4. Pronosticos de la Proxima Jornada
+## 4. Pronosticos de la Proxima Jornada (Jornada 2)
 
 Pronósticos probabilísticos detallados de los 18 encuentros programados:
 
 | Partido | Probabilidades 1X2 | Pronostico | Doble Oportunidad | Mas de 2.5 | Ambos Anotan | Marcador Probable |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Young Boys** vs **Aston Villa** | `L 36% / E 24% / V 40%` | **Visitante** | `X2` (64%) | 57% | 61% | `1-1` |
-| **Juventus** vs **PSV Eindhoven** | `L 57% / E 21% / V 22%` | **Local** | `1X` (78%) | 58% | 61% | `1-1` |
-| **Sporting** vs **Lille** | `L 40% / E 24% / V 36%` | **Local** | `1X` (64%) | 56% | 60% | `1-1` |
-| **Bayern Munich** vs **Dinamo Zagreb** | `L 78% / E 14% / V 8%` | **Local** | `1X` (92%) | 60% | 59% | `1-1` |
-| **Real Madrid** vs **Stuttgart** | `L 72% / E 17% / V 12%` | **Local** | `1X` (88%) | 59% | 60% | `1-1` |
-| **Milan** vs **Liverpool** | `L 33% / E 26% / V 41%` | **Visitante** | `X2` (67%) | 58% | 61% | `1-1` |
-| **Bologna** vs **Shakhtar Donetsk** | `L 61% / E 21% / V 18%` | **Local** | `1X` (82%) | 59% | 58% | `1-1` |
-| **Sparta Praha** vs **Salzburg** | `L 38% / E 24% / V 38%` | **Visitante** | `X2` (62%) | 57% | 61% | `1-1` |
-| **Man City** vs **Inter** | `L 66% / E 19% / V 16%` | **Local** | `1X` (84%) | 58% | 61% | `1-1` |
-| **Paris SG** vs **Girona** | `L 63% / E 19% / V 18%` | **Local** | `1X` (82%) | 58% | 60% | `1-1` |
-| **Club Brugge** vs **Dortmund** | `L 29% / E 25% / V 46%` | **Visitante** | `X2` (71%) | 57% | 61% | `1-1` |
-| **Celtic** vs **Slovan Bratislava** | `L 59% / E 21% / V 20%` | **Local** | `1X` (80%) | 58% | 60% | `1-1` |
-| **Feyenoord** vs **Leverkusen** | `L 34% / E 24% / V 41%` | **Visitante** | `X2` (66%) | 57% | 61% | `1-1` |
-| **Crvena Zvezda** vs **Benfica** | `L 33% / E 24% / V 43%` | **Visitante** | `X2` (67%) | 56% | 60% | `1-1` |
-| **Monaco** vs **Barcelona** | `L 32% / E 25% / V 44%` | **Visitante** | `X2` (68%) | 57% | 61% | `1-1` |
-| **Brest** vs **Sturm Graz** | `L 52% / E 23% / V 25%` | **Local** | `1X` (75%) | 58% | 61% | `1-1` |
-| **Atalanta** vs **Arsenal** | `L 37% / E 27% / V 36%` | **Local** | `1X` (64%) | 58% | 61% | `1-1` |
-| **Atletico** vs **RB Leipzig** | `L 43% / E 23% / V 34%` | **Local** | `1X` (66%) | 56% | 60% | `1-1` |
+| **Lens** vs **Sporting** | `L 62% / E 20% / V 18%` | **Local** | `1X` (82%) | 59% | 59% | `1-1` |
+| **Sabah FC** vs **Slavia Praha** | `L 48% / E 24% / V 28%` | **Local** | `1X` (72%) | 57% | 59% | `1-1` |
+| **Arsenal** vs **Lille** | `L 73% / E 16% / V 11%` | **Local** | `1X` (89%) | 59% | 60% | `1-1` |
+| **Atletico** vs **Manchester United** | `L 55% / E 22% / V 23%` | **Local** | `1X` (77%) | 58% | 61% | `1-1` |
+| **Inter** vs **Club Brugge** | `L 71% / E 17% / V 12%` | **Local** | `1X` (88%) | 59% | 60% | `1-1` |
+| **Galatasaray SK** vs **Barcelona** | `L 26% / E 23% / V 51%` | **Visitante** | `X2` (74%) | 56% | 60% | `1-1` |
+| **RB Leipzig** vs **PSV Eindhoven** | `L 56% / E 22% / V 22%` | **Local** | `1X` (78%) | 58% | 61% | `1-1` |
+| **Viking** vs **Bayern Munich** | `L 18% / E 23% / V 59%` | **Visitante** | `X2` (82%) | 57% | 61% | `1-1` |
+| **Villarreal** vs **Napoli** | `L 46% / E 23% / V 31%` | **Local** | `1X` (69%) | 58% | 61% | `1-1` |
+| **Feyenoord** vs **Como** | `L 43% / E 23% / V 33%` | **Local** | `1X` (67%) | 57% | 61% | `1-1` |
+| **LASK** vs **Liverpool** | `L 22% / E 22% / V 56%` | **Visitante** | `X2` (78%) | 57% | 61% | `1-1` |
+| **Roma** vs **Real Madrid** | `L 32% / E 25% / V 43%` | **Visitante** | `X2` (68%) | 57% | 61% | `1-1` |
+| **Aston Villa** vs **Fenerbahce** | `L 66% / E 19% / V 15%` | **Local** | `1X` (85%) | 59% | 58% | `1-1` |
+| **Shakhtar Donetsk** vs **AEK Athens** | `L 54% / E 22% / V 24%` | **Local** | `1X` (76%) | 58% | 61% | `1-1` |
+| **Bodo/Glimt** vs **Dortmund** | `L 30% / E 24% / V 47%` | **Visitante** | `X2` (70%) | 56% | 60% | `1-1` |
+| **Man City** vs **Paris SG** | `L 61% / E 20% / V 19%` | **Local** | `1X` (81%) | 58% | 61% | `1-1` |
+| **Real Betis** vs **Porto** | `L 30% / E 24% / V 46%` | **Visitante** | `X2` (70%) | 57% | 61% | `1-1` |
+| **Slovan Bratislava** vs **Stuttgart** | `L 37% / E 24% / V 38%` | **Visitante** | `X2` (63%) | 57% | 61% | `1-1` |
 
 ---
 

@@ -1,4 +1,4 @@
-﻿import json
+import json
 import unicodedata
 from pathlib import Path
 from typing import Dict, Optional, Tuple
@@ -29,8 +29,9 @@ TEAM_ALIASES = {
     "manchester city fc": "Man City",
     "manchester city": "Man City",
     "man city": "Man City",
-    "manchester united fc": "Man United",
-    "manchester united": "Man United",
+    "manchester united fc": "Manchester United",
+    "manchester united": "Manchester United",
+    "man united": "Manchester United",
     "liverpool fc": "Liverpool",
     "liverpool": "Liverpool",
     "arsenal fc": "Arsenal",
@@ -42,6 +43,39 @@ TEAM_ALIASES = {
     "tottenham": "Tottenham",
     "aston villa fc": "Aston Villa",
     "aston villa": "Aston Villa",
+    "newcastle united fc": "Newcastle",
+    "leicester city fc": "Leicester",
+    "como": "Como",
+    "como 1907": "Como",
+    "sabah fc": "Sabah FC",
+    "sabah futbol klubu": "Sabah FC",
+    "sabah": "Sabah FC",
+    "viking": "Viking",
+    "viking fk": "Viking",
+    "bodo/glimt": "Bodo/Glimt",
+    "fk bodo/glimt": "Bodo/Glimt",
+    "bodø/glimt": "Bodo/Glimt",
+    "fk bodø/glimt": "Bodo/Glimt",
+    "aek athens": "AEK Athens",
+    "aek athens fc": "AEK Athens",
+    "aek": "AEK Athens",
+    "lask": "LASK",
+    "lask linz": "LASK",
+    "real betis": "Real Betis",
+    "real betis balompie": "Real Betis",
+    "betis": "Real Betis",
+    "club brujas": "Club Brugge",
+    "sporting lisboa": "Sporting",
+    "slavia praga": "Slavia Praha",
+    "atletico madrid": "Atletico",
+    "atletico de madrid": "Atletico",
+    "club atletico de madrid": "Atletico",
+    "villarreal cf": "Villarreal",
+    "villarreal": "Villarreal",
+    "fenerbahçe": "Fenerbahce",
+    "fenerbahce": "Fenerbahce",
+    "fenerbahçe sk": "Fenerbahce",
+    "fenerbahce sk": "Fenerbahce",
     "newcastle united fc": "Newcastle",
     "leicester city fc": "Leicester",
     
@@ -165,6 +199,17 @@ TEAM_ALIASES = {
 }
 
 
+MANUAL_ELOS = {
+    "real betis": 1745.0,
+    "aek athens": 1590.0,
+    "bodo/glimt": 1615.0,
+    "sabah fc": 1480.0,
+    "viking": 1540.0,
+    "como": 1780.0,
+    "lask": 1510.0,
+}
+
+
 class ClubEloManager:
     """Manages European Elo ratings with date-aware lookups and UEFA-coef fallback."""
 
@@ -210,6 +255,9 @@ class ClubEloManager:
         c_name = self.canonical_name(team_name)
         norm_key = strip_accents(c_name).lower().strip()
         
+        if norm_key in MANUAL_ELOS and match_date is None:
+            return MANUAL_ELOS[norm_key]
+
         if norm_key in self.elo_cache:
             history = self.elo_cache[norm_key]
             if match_date is not None:

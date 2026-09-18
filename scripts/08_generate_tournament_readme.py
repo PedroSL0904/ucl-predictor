@@ -13,7 +13,7 @@ def make_bar(prob_pct: float, length: int = 10) -> str:
     filled = int(round(prob_pct / 100.0 * length))
     return "█" * filled + "░" * (length - filled)
 
-def generate_tournament_readme(season: str = "2024-25", n_sims: int = 2000) -> str:
+def generate_tournament_readme(season: str = "2026-27", n_sims: int = 2000) -> str:
     print(f"Generating Living Tournament README for {season} ({n_sims} simulations)...")
     predictor = UCLPredictor()
     df_feat = pd.read_parquet(settings.FEATURES_PATH)
@@ -31,7 +31,7 @@ def generate_tournament_readme(season: str = "2024-25", n_sims: int = 2000) -> s
         a = row["away_team_name"]
         hg = row["home_goals"]
         ag = row["away_goals"]
-        if hg is not None and ag is not None:
+        if pd.notna(hg) and pd.notna(ag):
             finished_count += 1
 
         pred = predictor.predict_match(h, a, match_date=str(row["date"])[:10])
@@ -41,8 +41,8 @@ def generate_tournament_readme(season: str = "2024-25", n_sims: int = 2000) -> s
             "probs": [pred.probs["H"], pred.probs["D"], pred.probs["A"]],
             "lam_h": pred.lambda_home,
             "lam_a": pred.lambda_away,
-            "home_goals": hg,
-            "away_goals": ag
+            "home_goals": hg if pd.notna(hg) else None,
+            "away_goals": ag if pd.notna(ag) else None
         })
 
     # 1. Swiss Stage Simulation
@@ -96,8 +96,9 @@ def generate_tournament_readme(season: str = "2024-25", n_sims: int = 2000) -> s
         for t in teams
     ]).sort_values("prob_champion", ascending=False).reset_index(drop=True)
 
-    # 3. Matchday 1 Predictions
-    md_preds = predict_ucl_matchday(season=season, matchday=1, predictor=predictor)
+    # 3. Next Matchday Predictions (Upcoming unplayed round)
+    md_preds = predict_ucl_matchday(season=season, matchday=None, predictor=predictor)
+    next_md = md_preds[0]["matchday"] if md_preds else 2
 
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M UTC")
 
@@ -107,7 +108,7 @@ def generate_tournament_readme(season: str = "2024-25", n_sims: int = 2000) -> s
     md.append("Pronóstico probabilístico y simulador del torneo completo de la UEFA Champions League, actualizado dinámicamente conforme avanza la competición.")
     md.append("")
     md.append(f"- **Temporada**: {season}")
-    md.append(f"- **Progreso del Torneo**: {finished_count} de {len(season_matches)} partidos computados")
+    md.append(f"- **Progreso del Torneo**: {finished_count} de {len(season_matches)} partidos computados (Jornada 1 concluida)")
     md.append(f"- **Ultima Actualizacion**: `{now_str}`")
     md.append("")
     md.append("---")
@@ -130,11 +131,12 @@ def generate_tournament_readme(season: str = "2024-25", n_sims: int = 2000) -> s
     md.append("- **Puestos 9 al 24**: Ronda eliminatoria de Play-offs (Dieciseisavos de final).")
     md.append("- **Puestos 25 al 36**: Eliminados de la competicion.")
     md.append("")
-    md.append("| Pos | Club | Pts Esperados | Octavos Directos (1-8) | Play-offs (9-24) | Eliminado (25-36) | Estatus Proyectado |")
-    md.append("| :---: | :--- | :---: | :---: | :---: | :---: | :--- |")
+    md.append("| Pos | Club | PJ | Pts Actuales | Dif Gol | Pts Proyectados | Octavos Directos (1-8) | Play-offs (9-24) | Eliminado (25-36) | Estatus Proyectado |")
+    md.append("| :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
     for i, row in table_df.iterrows():
         status_label = "Octavos Directos" if i < 8 else ("Play-offs" if i < 24 else "Eliminado")
-        md.append(f"| {i+1:2d} | **{row['team']}** | {row['expected_points']:.1f} pts | {row['prob_top_8']:.1f}% | {row['prob_playoff_9_24']:.1f}% | {row['prob_eliminated']:.1f}% | {status_label} |")
+        gd_str = f"+{row['current_gd']}" if row['current_gd'] > 0 else f"{row['current_gd']}"
+        md.append(f"| {i+1:2d} | **{row['team']}** | {row['current_pj']} | {row['current_points']} | {gd_str} | {row['expected_points']:.1f} pts | {row['prob_top_8']:.1f}% | {row['prob_playoff_9_24']:.1f}% | {row['prob_eliminated']:.1f}% | {status_label} |")
     md.append("")
     md.append("---")
     md.append("")
@@ -158,7 +160,7 @@ def generate_tournament_readme(season: str = "2024-25", n_sims: int = 2000) -> s
     md.append("")
     md.append("---")
     md.append("")
-    md.append("## 4. Pronosticos de la Proxima Jornada")
+    md.append(f"## 4. Pronosticos de la Proxima Jornada (Jornada {next_md})")
     md.append("")
     md.append("Pronósticos probabilísticos detallados de los 18 encuentros programados:")
     md.append("")

@@ -1,4 +1,4 @@
-﻿"""Monte Carlo simulation of the 36-team UEFA Champions League Swiss Stage."""
+"""Monte Carlo simulation of the 36-team UEFA Champions League Swiss Stage."""
 from __future__ import annotations
 from typing import Dict, List, Tuple, Any
 import numpy as np
@@ -98,12 +98,40 @@ class SwissStageSimulator:
                 else:
                     elim_counts[team] += 1
 
+        current_stats = {
+            t: {"pj": 0, "points": 0, "gf": 0, "ga": 0, "gd": 0}
+            for t in self.teams
+        }
+        for f in self.fixtures:
+            if f.get("home_goals") is not None and f.get("away_goals") is not None:
+                h, a = f["home_team"], f["away_team"]
+                hg, ag = f["home_goals"], f["away_goals"]
+                if h in current_stats and a in current_stats:
+                    current_stats[h]["pj"] += 1
+                    current_stats[a]["pj"] += 1
+                    current_stats[h]["gf"] += hg
+                    current_stats[h]["ga"] += ag
+                    current_stats[h]["gd"] += (hg - ag)
+                    current_stats[a]["gf"] += ag
+                    current_stats[a]["ga"] += hg
+                    current_stats[a]["gd"] += (ag - hg)
+                    if hg > ag:
+                        current_stats[h]["points"] += 3
+                    elif hg == ag:
+                        current_stats[h]["points"] += 1
+                        current_stats[a]["points"] += 1
+                    else:
+                        current_stats[a]["points"] += 3
+
         summary = []
         for t in self.teams:
             avg_pts = np.mean(pts_accum[t]) if pts_accum[t] else 0.0
             avg_rank = np.mean(rank_accum[t]) if rank_accum[t] else 18.0
             summary.append({
                 "team": t,
+                "current_pj": current_stats[t]["pj"],
+                "current_points": current_stats[t]["points"],
+                "current_gd": current_stats[t]["gd"],
                 "projected_rank": round(float(avg_rank), 1),
                 "expected_points": round(float(avg_pts), 1),
                 "prob_top_8": round(top8_counts[t] / n_simulations * 100, 1),

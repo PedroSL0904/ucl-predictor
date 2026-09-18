@@ -1,0 +1,183 @@
+= UEFA Champions League 2026/27
+
+# Date       Tue Sep 8 2026 - Sat Jun 5 2027
+# Teams      36
+# Matches    144
+# Stages     League (144)
+
+▪ League, Matchday 1
+  Tue Sep 8 2026
+    18:45  Club Brugge KV (BEL)    v Aston Villa FC (ENG)     2-3 (1-1)
+           AEK Athens (GRE)        v LASK (AUT)               1-0 (0-0)
+    21:00  FC Porto (POR)          v Manchester City FC (ENG)  0-2 (0-1)
+           Real Madrid CF (ESP)    v FC Internazionale Milano (ITA)  2-1 (1-1)
+           Borussia Dortmund (GER) v Villarreal CF (ESP)      3-2 (1-1)
+           Lille OSC (FRA)         v Real Betis (ESP)         2-3 (1-1)
+  Wed Sep 9
+    18:45  FC Barcelona (ESP)      v Feyenoord Rotterdam (NED)  5-1 (3-0)
+           VfB Stuttgart (GER)     v Viking FK (NOR)          3-1 (2-0)
+    21:00  SSC Napoli (ITA)        v Arsenal FC (ENG)         0-1 (0-1)
+           Liverpool FC (ENG)      v Club Atlético de Madrid (ESP)  2-1 (1-1)
+           Paris Saint-Germain FC (FRA) v ŠK Slovan Bratislava (SVK)  6-1 (3-1)
+           Sporting Clube de Portugal (POR) v Galatasaray SK (TUR)  3-1 (1-0)
+  Thu Sep 10
+    18:45  Fenerbahçe SK (TUR)     v AS Roma (ITA)            1-1 (1-1)
+           PSV (NED)               v FK Shakhtar Donetsk (UKR)  1-1 (1-0)
+    21:00  FC Bayern München (GER) v FK Bodø/Glimt (NOR)      5-0 (2-0)
+           SK Slavia Praha (CZE)   v RC Lens (FRA)            2-3 (1-1)
+           Como 1907 (ITA)         v RB Leipzig (GER)         4-1 (2-0)
+           Manchester United FC (ENG) v Sabah FC (AZE)        4-0 (2-0)
+
+▪ League, Matchday 2
+  Tue Oct 13 2026
+    18:45  RC Lens (FRA)           v Sporting Clube de Portugal (POR)
+           Sabah FC (AZE)          v SK Slavia Praha (CZE)
+    21:00  Arsenal FC (ENG)        v Lille OSC (FRA)
+           Club Atlético de Madrid (ESP) v Manchester United FC (ENG)
+           FC Internazionale Milano (ITA) v Club Brugge KV (BEL)
+           Galatasaray SK (TUR)    v FC Barcelona (ESP)
+           RB Leipzig (GER)        v PSV (NED)
+           Viking FK (NOR)         v FC Bayern München (GER)
+           Villarreal CF (ESP)     v SSC Napoli (ITA)
+  Wed Oct 14
+    18:45  Feyenoord Rotterdam (NED) v Como 1907 (ITA)
+           LASK (AUT)              v Liverpool FC (ENG)
+    21:00  AS Roma (ITA)           v Real Madrid CF (ESP)
+           Aston Villa FC (ENG)    v Fenerbahçe SK (TUR)
+           FK Shakhtar Donetsk (UKR) v AEK Athens (GRE)
+           FK Bodø/Glimt (NOR)     v Borussia Dortmund (GER)
+           Manchester City FC (ENG) v Paris Saint-Germain FC (FRA)
+           Real Betis (ESP)        v FC Porto (POR)
+           ŠK Slovan Bratislava (SVK) v VfB Stuttgart (GER)
+
+▪ League, Matchday 3
+  Tue Oct 20 2026
+    21:00  Club Brugge KV (BEL) v SK Slavia Praha (CZE)
+    21:00  AS Roma (ITA) v Villarreal CF (ESP)
+    21:00  Real Betis (ESP) v Sporting Clube de Portugal (POR)
+    21:00  Real Madrid CF (ESP) v RB Leipzig (GER)
+    21:00  FK Bodø/Glimt (NOR) v RC Lens (FRA)
+    21:00  Manchester United FC (ENG) v Manchester City FC (ENG)
+    21:00  FC Barcelona (ESP) v VfB Stuttgart (GER)
+    21:00  Liverpool FC (ENG) v Fenerbahçe SK (TUR)
+    21:00  FC Porto (POR) v Como 1907 (ITA)
+  Wed Oct 21
+    21:00  Borussia Dortmund (GER) v Feyenoord Rotterdam (NED)
+    21:00  SSC Napoli (ITA) v Paris Saint-Germain FC (FRA)
+    21:00  PSV (NED) v Lille OSC (FRA)
+    21:00  Aston Villa FC (ENG) v AEK Athens (GRE)
+    21:00  FC Bayern München (GER) v FC Internazionale Milano (ITA)
+    21:00  Arsenal FC (ENG) v FK Shakhtar Donetsk (UKR)
+    21:00  ŠK Slovan Bratislava (SVK) v Club Atlético de Madrid (ESP)
+    21:00  LASK (AUT) v Sabah FC (AZE)
+    21:00  Viking FK (NOR) v Galatasaray SK (TUR)
+
+▪ League, Matchday 4
+  Tue Nov 3 2026
+    21:00  Viking FK (NOR) v FK Bodø/Glimt (NOR)
+    21:00  Paris Saint-Germain FC (FRA) v AEK Athens (GRE)
+    21:00  Manchester City FC (ENG) v Como 1907 (ITA)
+    21:00  FC Bayern München (GER) v AS Roma (ITA)
+    21:00  Borussia Dortmund (GER) v Club Brugge KV (BEL)
+    21:00  SSC Napoli (ITA) v Manchester United FC (ENG)
+    21:00  Liverpool FC (ENG) v Real Betis (ESP)
+    21:00  FC Barcelona (ESP) v Real Madrid CF (ESP)
+    21:00  Sporting Clube de Portugal (POR) v Sabah FC (AZE)
+  Wed Nov 4
+    21:00  PSV (NED) v Arsenal FC (ENG)
+    21:00  FC Porto (POR) v ŠK Slovan Bratislava (SVK)
+    21:00  SK Slavia Praha (CZE) v Feyenoord Rotterdam (NED)
+    21:00  FC Internazionale Milano (ITA) v Fenerbahçe SK (TUR)
+    21:00  LASK (AUT) v Aston Villa FC (ENG)
+    21:00  FK Shakhtar Donetsk (UKR) v Club Atlético de Madrid (ESP)
+    21:00  RB Leipzig (GER) v RC Lens (FRA)
+    21:00  Galatasaray SK (TUR) v Lille OSC (FRA)
+    21:00  VfB Stuttgart (GER) v Villarreal CF (ESP)
+
+▪ League, Matchday 5
+  Tue Nov 24 2026
+    21:00  FK Bodø/Glimt (NOR) v Galatasaray SK (TUR)
+    21:00  Arsenal FC (ENG) v Real Madrid CF (ESP)
+    21:00  ŠK Slovan Bratislava (SVK) v Sporting Clube de Portugal (POR)
+    21:00  Paris Saint-Germain FC (FRA) v FC Internazionale Milano (ITA)
+    21:00  Como 1907 (ITA) v Club Atlético de Madrid (ESP)
+    21:00  Lille OSC (FRA) v Feyenoord Rotterdam (NED)
+    21:00  Villarreal CF (ESP) v Sabah FC (AZE)
+    21:00  FC Porto (POR) v FC Bayern München (GER)
+    21:00  Manchester City FC (ENG) v SK Slavia Praha (CZE)
+  Wed Nov 25
+    21:00  Borussia Dortmund (GER) v FC Barcelona (ESP)
+    21:00  Liverpool FC (ENG) v Viking FK (NOR)
+    21:00  RC Lens (FRA) v Fenerbahçe SK (TUR)
+    21:00  PSV (NED) v SSC Napoli (ITA)
+    21:00  FK Shakhtar Donetsk (UKR) v Real Betis (ESP)
+    21:00  Club Brugge KV (BEL) v LASK (AUT)
+    21:00  Aston Villa FC (ENG) v Manchester United FC (ENG)
+    21:00  AEK Athens (GRE) v RB Leipzig (GER)
+    21:00  VfB Stuttgart (GER) v AS Roma (ITA)
+
+▪ League, Matchday 6
+  Tue Dec 8 2026
+    21:00  FC Barcelona (ESP) v Paris Saint-Germain FC (FRA)
+    21:00  FC Internazionale Milano (ITA) v Manchester United FC (ENG)
+    21:00  ŠK Slovan Bratislava (SVK) v FK Shakhtar Donetsk (UKR)
+    21:00  Galatasaray SK (TUR) v Villarreal CF (ESP)
+    21:00  Fenerbahçe SK (TUR) v Sabah FC (AZE)
+    21:00  Real Madrid CF (ESP) v Sporting Clube de Portugal (POR)
+    21:00  Lille OSC (FRA) v RC Lens (FRA)
+    21:00  SK Slavia Praha (CZE) v RB Leipzig (GER)
+    21:00  Club Atlético de Madrid (ESP) v Feyenoord Rotterdam (NED)
+  Wed Dec 9
+    21:00  AS Roma (ITA) v Real Betis (ESP)
+    21:00  Viking FK (NOR) v Club Brugge KV (BEL)
+    21:00  AEK Athens (GRE) v Como 1907 (ITA)
+    21:00  Aston Villa FC (ENG) v VfB Stuttgart (GER)
+    21:00  Manchester City FC (ENG) v LASK (AUT)
+    21:00  Arsenal FC (ENG) v FC Bayern München (GER)
+    21:00  FK Bodø/Glimt (NOR) v SSC Napoli (ITA)
+    21:00  PSV (NED) v FC Porto (POR)
+    21:00  Liverpool FC (ENG) v Borussia Dortmund (GER)
+
+▪ League, Matchday 7
+  Tue Jan 19 2027
+    21:00  Como 1907 (ITA) v Sporting Clube de Portugal (POR)
+    21:00  AEK Athens (GRE) v VfB Stuttgart (GER)
+    21:00  SK Slavia Praha (CZE) v LASK (AUT)
+    21:00  Fenerbahçe SK (TUR) v RB Leipzig (GER)
+    21:00  RC Lens (FRA) v Club Atlético de Madrid (ESP)
+    21:00  Manchester City FC (ENG) v Arsenal FC (ENG)
+    21:00  SSC Napoli (ITA) v Real Madrid CF (ESP)
+    21:00  AS Roma (ITA) v FC Internazionale Milano (ITA)
+    21:00  Lille OSC (FRA) v FC Bayern München (GER)
+  Wed Jan 20
+    21:00  Real Betis (ESP) v Manchester United FC (ENG)
+    21:00  Liverpool FC (ENG) v PSV (NED)
+    21:00  Villarreal CF (ESP) v Feyenoord Rotterdam (NED)
+    21:00  FK Shakhtar Donetsk (UKR) v Galatasaray SK (TUR)
+    21:00  Paris Saint-Germain FC (FRA) v Club Brugge KV (BEL)
+    21:00  ŠK Slovan Bratislava (SVK) v Viking FK (NOR)
+    21:00  FC Barcelona (ESP) v FK Bodø/Glimt (NOR)
+    21:00  Borussia Dortmund (GER) v Aston Villa FC (ENG)
+    21:00  Sabah FC (AZE) v FC Porto (POR)
+
+▪ League, Matchday 8
+  Wed Jan 27 2027
+    21:00  Arsenal FC (ENG) v Paris Saint-Germain FC (FRA)
+    21:00  Sabah FC (AZE) v Club Atlético de Madrid (ESP)
+    21:00  Manchester City FC (ENG) v Liverpool FC (ENG)
+    21:00  FK Bodø/Glimt (NOR) v SK Slavia Praha (CZE)
+    21:00  LASK (AUT) v FC Bayern München (GER)
+    21:00  ŠK Slovan Bratislava (SVK) v FC Barcelona (ESP)
+    21:00  Club Brugge KV (BEL) v Fenerbahçe SK (TUR)
+    21:00  RC Lens (FRA) v VfB Stuttgart (GER)
+    21:00  Borussia Dortmund (GER) v PSV (NED)
+  Wed Jan 27
+    21:00  Aston Villa FC (ENG) v Viking FK (NOR)
+    21:00  Galatasaray SK (TUR) v FC Internazionale Milano (ITA)
+    21:00  Manchester United FC (ENG) v Sporting Clube de Portugal (POR)
+    21:00  Feyenoord Rotterdam (NED) v RB Leipzig (GER)
+    21:00  Real Betis (ESP) v Como 1907 (ITA)
+    21:00  FC Porto (POR) v FK Shakhtar Donetsk (UKR)
+    21:00  AEK Athens (GRE) v Lille OSC (FRA)
+    21:00  Real Madrid CF (ESP) v Villarreal CF (ESP)
+    21:00  AS Roma (ITA) v SSC Napoli (ITA)

@@ -108,5 +108,15 @@
     "name": "Rest of Europe",
     "coef": 0.35,
     "league": "Domestic"
+  },
+  "NOR": {
+    "name": "Norway",
+    "coef": 0.49,
+    "league": "Eliteserien"
+  },
+  "AZE": {
+    "name": "Azerbaijan",
+    "coef": 0.38,
+    "league": "Premyer Liqasi"
   }
 }
