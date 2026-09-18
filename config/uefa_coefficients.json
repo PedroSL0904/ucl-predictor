@@ -1,0 +1,112 @@
+{
+  "ENG": {
+    "name": "England",
+    "coef": 1.0,
+    "league": "Premier League"
+  },
+  "ITA": {
+    "name": "Italy",
+    "coef": 0.94,
+    "league": "Serie A"
+  },
+  "ESP": {
+    "name": "Spain",
+    "coef": 0.93,
+    "league": "La Liga"
+  },
+  "GER": {
+    "name": "Germany",
+    "coef": 0.92,
+    "league": "Bundesliga"
+  },
+  "FRA": {
+    "name": "France",
+    "coef": 0.82,
+    "league": "Ligue 1"
+  },
+  "NED": {
+    "name": "Netherlands",
+    "coef": 0.74,
+    "league": "Eredivisie"
+  },
+  "POR": {
+    "name": "Portugal",
+    "coef": 0.73,
+    "league": "Primeira Liga"
+  },
+  "BEL": {
+    "name": "Belgium",
+    "coef": 0.68,
+    "league": "Pro League"
+  },
+  "CZE": {
+    "name": "Czech Republic",
+    "coef": 0.6,
+    "league": "First League"
+  },
+  "TUR": {
+    "name": "Turkey",
+    "coef": 0.58,
+    "league": "Super Lig"
+  },
+  "SCO": {
+    "name": "Scotland",
+    "coef": 0.55,
+    "league": "Premiership"
+  },
+  "AUT": {
+    "name": "Austria",
+    "coef": 0.54,
+    "league": "Bundesliga"
+  },
+  "SUI": {
+    "name": "Switzerland",
+    "coef": 0.52,
+    "league": "Super League"
+  },
+  "GRE": {
+    "name": "Greece",
+    "coef": 0.5,
+    "league": "Super League"
+  },
+  "DEN": {
+    "name": "Denmark",
+    "coef": 0.48,
+    "league": "Superliga"
+  },
+  "CRO": {
+    "name": "Croatia",
+    "coef": 0.46,
+    "league": "HNL"
+  },
+  "SRB": {
+    "name": "Serbia",
+    "coef": 0.45,
+    "league": "SuperLiga"
+  },
+  "UKR": {
+    "name": "Ukraine",
+    "coef": 0.44,
+    "league": "Premier League"
+  },
+  "POL": {
+    "name": "Poland",
+    "coef": 0.42,
+    "league": "Ekstraklasa"
+  },
+  "SWE": {
+    "name": "Sweden",
+    "coef": 0.4,
+    "league": "Allsvenskan"
+  },
+  "SVK": {
+    "name": "Slovakia",
+    "coef": 0.38,
+    "league": "Super Liga"
+  },
+  "DEFAULT": {
+    "name": "Rest of Europe",
+    "coef": 0.35,
+    "league": "Domestic"
+  }
+}
