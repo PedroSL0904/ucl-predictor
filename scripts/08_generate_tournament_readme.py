@@ -164,20 +164,28 @@ def generate_tournament_readme(season: str = "2026-27", n_sims: int = 2000) -> s
     md.append("")
     md.append("Pronósticos probabilísticos detallados de los 18 encuentros programados:")
     md.append("")
-    md.append("| Partido | Probabilidades 1X2 | Pronostico | Doble Oportunidad | Mas de 2.5 | Ambos Anotan | Marcador Probable |")
-    md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: |")
+    md.append("| Partido | Probabilidades 1X2 | Pronostico | Marcador Probable |")
+    md.append("| :--- | :---: | :---: | :---: |")
     for p in md_preds[:18]:
         probs = p.get("probs", {"H": 0.33, "D": 0.33, "A": 0.33})
         prob_str = f"L {probs['H']*100:.0f}% / E {probs['D']*100:.0f}% / V {probs['A']*100:.0f}%"
         pick_label = "Local" if p.get("prediction") == "H" else ("Empate" if p.get("prediction") == "D" else "Visitante")
-        ou = p.get("over_under") or {}
-        ou25 = ou.get("over_2_5", 0.5) * 100.0
-        btts = p.get("btts") or {}
-        btts_yes = btts.get("yes", 0.5) * 100.0
+        pred = p.get("prediction", "H")
         scores = p.get("top_exact_scores") or {}
-        top_score = list(scores.keys())[0] if scores else "1-1"
-        dc_prob = p.get("double_chance_prob", 0.5) * 100.0
-        md.append(f"| **{p.get('home_team')}** vs **{p.get('away_team')}** | `{prob_str}` | **{pick_label}** | `{p.get('double_chance')}` ({dc_prob:.0f}%) | {ou25:.0f}% | {btts_yes:.0f}% | `{top_score}` |")
+        aligned = []
+        for s, prob in scores.items():
+            try:
+                sh, sa = map(int, s.split("-"))
+                if pred == "H" and sh > sa:
+                    aligned.append((s, prob))
+                elif pred == "A" and sa > sh:
+                    aligned.append((s, prob))
+                elif pred == "D" and sh == sa:
+                    aligned.append((s, prob))
+            except Exception:
+                pass
+        top_score = aligned[0][0] if aligned else (list(scores.keys())[0] if scores else "1-0")
+        md.append(f"| **{p.get('home_team')}** vs **{p.get('away_team')}** | `{prob_str}` | **{pick_label}** | `{top_score}` |")
     md.append("")
     md.append("---")
     md.append("")

@@ -4,7 +4,7 @@ Pronóstico probabilístico y simulador del torneo completo de la UEFA Champions
 
 - **Temporada**: 2026-27
 - **Progreso del Torneo**: 18 de 144 partidos computados (Jornada 1 concluida)
-- **Ultima Actualizacion**: `2026-09-17 23:05 UTC`
+- **Ultima Actualizacion**: `2026-09-17 23:13 UTC`
 
 ---
 
@@ -98,26 +98,26 @@ Clubs clasificados directamente entre los 8 primeros: **Man City, Liverpool, Bar
 
 Pronósticos probabilísticos detallados de los 18 encuentros programados:
 
-| Partido | Probabilidades 1X2 | Pronostico | Doble Oportunidad | Mas de 2.5 | Ambos Anotan | Marcador Probable |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Lens** vs **Sporting** | `L 62% / E 20% / V 18%` | **Local** | `1X` (82%) | 59% | 59% | `1-1` |
-| **Sabah FC** vs **Slavia Praha** | `L 48% / E 24% / V 28%` | **Local** | `1X` (72%) | 57% | 59% | `1-1` |
-| **Arsenal** vs **Lille** | `L 73% / E 16% / V 11%` | **Local** | `1X` (89%) | 59% | 60% | `1-1` |
-| **Atletico** vs **Manchester United** | `L 55% / E 22% / V 23%` | **Local** | `1X` (77%) | 58% | 61% | `1-1` |
-| **Inter** vs **Club Brugge** | `L 71% / E 17% / V 12%` | **Local** | `1X` (88%) | 59% | 60% | `1-1` |
-| **Galatasaray SK** vs **Barcelona** | `L 26% / E 23% / V 51%` | **Visitante** | `X2` (74%) | 56% | 60% | `1-1` |
-| **RB Leipzig** vs **PSV Eindhoven** | `L 56% / E 22% / V 22%` | **Local** | `1X` (78%) | 58% | 61% | `1-1` |
-| **Viking** vs **Bayern Munich** | `L 18% / E 23% / V 59%` | **Visitante** | `X2` (82%) | 57% | 61% | `1-1` |
-| **Villarreal** vs **Napoli** | `L 46% / E 23% / V 31%` | **Local** | `1X` (69%) | 58% | 61% | `1-1` |
-| **Feyenoord** vs **Como** | `L 43% / E 23% / V 33%` | **Local** | `1X` (67%) | 57% | 61% | `1-1` |
-| **LASK** vs **Liverpool** | `L 22% / E 22% / V 56%` | **Visitante** | `X2` (78%) | 57% | 61% | `1-1` |
-| **Roma** vs **Real Madrid** | `L 32% / E 25% / V 43%` | **Visitante** | `X2` (68%) | 57% | 61% | `1-1` |
-| **Aston Villa** vs **Fenerbahce** | `L 66% / E 19% / V 15%` | **Local** | `1X` (85%) | 59% | 58% | `1-1` |
-| **Shakhtar Donetsk** vs **AEK Athens** | `L 54% / E 22% / V 24%` | **Local** | `1X` (76%) | 58% | 61% | `1-1` |
-| **Bodo/Glimt** vs **Dortmund** | `L 30% / E 24% / V 47%` | **Visitante** | `X2` (70%) | 56% | 60% | `1-1` |
-| **Man City** vs **Paris SG** | `L 61% / E 20% / V 19%` | **Local** | `1X` (81%) | 58% | 61% | `1-1` |
-| **Real Betis** vs **Porto** | `L 30% / E 24% / V 46%` | **Visitante** | `X2` (70%) | 57% | 61% | `1-1` |
-| **Slovan Bratislava** vs **Stuttgart** | `L 37% / E 24% / V 38%` | **Visitante** | `X2` (63%) | 57% | 61% | `1-1` |
+| Partido | Probabilidades 1X2 | Pronostico | Marcador Probable |
+| :--- | :---: | :---: | :---: |
+| **Lens** vs **Sporting** | `L 62% / E 20% / V 18%` | **Local** | `2-1` |
+| **Sabah FC** vs **Slavia Praha** | `L 48% / E 24% / V 28%` | **Local** | `2-1` |
+| **Arsenal** vs **Lille** | `L 73% / E 16% / V 11%` | **Local** | `2-1` |
+| **Atletico** vs **Manchester United** | `L 55% / E 22% / V 23%` | **Local** | `2-1` |
+| **Inter** vs **Club Brugge** | `L 71% / E 17% / V 12%` | **Local** | `2-1` |
+| **Galatasaray SK** vs **Barcelona** | `L 26% / E 23% / V 51%` | **Visitante** | `1-2` |
+| **RB Leipzig** vs **PSV Eindhoven** | `L 56% / E 22% / V 22%` | **Local** | `2-1` |
+| **Viking** vs **Bayern Munich** | `L 18% / E 23% / V 59%` | **Visitante** | `1-2` |
+| **Villarreal** vs **Napoli** | `L 46% / E 23% / V 31%` | **Local** | `2-1` |
+| **Feyenoord** vs **Como** | `L 43% / E 23% / V 33%` | **Local** | `2-1` |
+| **LASK** vs **Liverpool** | `L 22% / E 22% / V 56%` | **Visitante** | `1-2` |
+| **Roma** vs **Real Madrid** | `L 32% / E 25% / V 43%` | **Visitante** | `1-2` |
+| **Aston Villa** vs **Fenerbahce** | `L 66% / E 19% / V 15%` | **Local** | `2-1` |
+| **Shakhtar Donetsk** vs **AEK Athens** | `L 54% / E 22% / V 24%` | **Local** | `2-1` |
+| **Bodo/Glimt** vs **Dortmund** | `L 30% / E 24% / V 47%` | **Visitante** | `1-2` |
+| **Man City** vs **Paris SG** | `L 61% / E 20% / V 19%` | **Local** | `2-1` |
+| **Real Betis** vs **Porto** | `L 30% / E 24% / V 46%` | **Visitante** | `1-2` |
+| **Slovan Bratislava** vs **Stuttgart** | `L 37% / E 24% / V 38%` | **Visitante** | `1-2` |
 
 ---
 
