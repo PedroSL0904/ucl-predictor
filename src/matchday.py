@@ -32,6 +32,8 @@ def predict_ucl_matchday(
             home_team=h,
             away_team=a,
             match_date=m_date,
+            home_country=row.get("home_country"),
+            away_country=row.get("away_country"),
             stage=row["stage"],
             matchday=row["matchday"]
         )
@@ -53,6 +55,7 @@ def predict_ucl_matchday(
             "over_under": p.over_under,
             "btts": p.btts,
             "top_exact_scores": p.top_exact_scores,
+            "conditioned_top_scores": p.conditioned_top_scores,
             "travel_distance_km": p.travel_distance_km,
             "travel_fatigue": p.travel_fatigue,
             "actual_home_goals": row["home_goals"],

@@ -1,10 +1,12 @@
-﻿"""Geographical distance and travel fatigue engine for European competitions."""
+"""Geographical distance and travel fatigue engine for European competitions."""
 import math
 import json
 from pathlib import Path
 from typing import Tuple, Optional
 
-CONFIG_PATH = Path("C:/Users/Boutros/ucl-predictor/config/stadium_cities.json")
+from config.settings import settings
+
+CONFIG_PATH = settings.CONFIG_DIR / "stadium_cities.json"
 
 def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """Calculates the great-circle distance between two points on Earth in kilometers."""

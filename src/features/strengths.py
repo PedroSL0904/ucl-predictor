@@ -1,4 +1,4 @@
-﻿"""Bayesian weighted attack/defense strengths for UEFA Champions League."""
+"""Bayesian weighted attack/defense strengths for UEFA Champions League."""
 from __future__ import annotations
 import numpy as np
 import pandas as pd
@@ -17,14 +17,14 @@ def compute_weighted_strengths(
     shrinkage_matches: int = 6,
     league_mean_attack: float = 1.0,
     league_mean_defense: float = 1.0,
-    home_team_col: str = "home_team_id",
-    away_team_col: str = "away_team_id",
+    home_team_col: str = "home_team_name",
+    away_team_col: str = "away_team_name",
     home_goals_col: str = "home_goals",
     away_goals_col: str = "away_goals",
     home_elo_col: str = "home_elo",
     away_elo_col: str = "away_elo",
     date_col: str = "date",
-) -> dict[int, dict[str, float]]:
+) -> dict[str, dict[str, float]]:
     """Calculates attack and defensive vulnerability weighting by opponent Elo and time decay."""
     data = df.copy()
     data[date_col] = pd.to_datetime(data[date_col])
@@ -86,7 +86,7 @@ def compute_weighted_strengths(
         shrink = w_n / (w_n + shrinkage_matches) if w_n > 0 else 0.0
         att = shrink * raw_att + (1.0 - shrink) * league_mean_attack
         def_vuln = shrink * raw_def + (1.0 - shrink) * league_mean_defense
-        strengths[int(tid)] = {
+        strengths[str(tid)] = {
             "attack": float(att),
             "defense": float(def_vuln),
             "matches": int(d["matches"]),

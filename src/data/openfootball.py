@@ -1,4 +1,4 @@
-﻿import re
+import re
 from pathlib import Path
 from typing import List, Dict, Any
 
@@ -72,15 +72,30 @@ def parse_season_file(filepath: Path, season_name: str) -> List[Dict[str, Any]]:
                 else:
                     home_team = home_part
                     
-                score_m = re.search(r"(\d+)-(\d+)(?:\s+\([^\)]+\))?(?:\s+a\.?e\.?t\.?)?(?:\s+\d+-\d+\s+pen\.?)?", away_and_score)
-                home_goals = None
-                away_goals = None
-                if score_m:
-                    home_goals = int(score_m.group(1))
-                    away_goals = int(score_m.group(2))
-                    away_raw = away_and_score[:score_m.start()].strip()
+                score_str = away_and_score
+                if "pen." in score_str:
+                    pen_idx = score_str.find("pen.")
+                    after_pen = score_str[pen_idx + 4:].strip()
+                    match_score_m = re.search(r"(\d+)-(\d+)", after_pen)
+                    if match_score_m:
+                        home_goals = int(match_score_m.group(1))
+                        away_goals = int(match_score_m.group(2))
+                        before_pen = score_str[:pen_idx].strip()
+                        shootout_m = re.search(r"\d+-\d+$", before_pen)
+                        away_raw = before_pen[:shootout_m.start()].strip() if shootout_m else before_pen
+                    else:
+                        home_goals, away_goals = None, None
+                        away_raw = away_and_score
                 else:
-                    away_raw = away_and_score.strip()
+                    score_m = re.search(r"(\d+)-(\d+)", score_str)
+                    if score_m:
+                        home_goals = int(score_m.group(1))
+                        away_goals = int(score_m.group(2))
+                        away_raw = score_str[:score_m.start()].strip()
+                    else:
+                        home_goals = None
+                        away_goals = None
+                        away_raw = score_str.strip()
                     
                 away_country = ""
                 ac_m = re.search(r"\(([A-Z]{3})\)$", away_raw)

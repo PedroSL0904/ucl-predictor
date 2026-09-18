@@ -141,3 +141,112 @@ class SwissStageSimulator:
 
         df_res = pd.DataFrame(summary).sort_values("projected_rank", ascending=True).reset_index(drop=True)
         return df_res
+
+    def run_full_tournament_simulations(
+        self,
+        elo_lookup: Any,
+        n_simulations: int = 1000,
+        seed: int = 42
+    ) -> Tuple[pd.DataFrame, pd.DataFrame]:
+        from src.simulation.bracket import KnockoutSimulator
+        rng = np.random.default_rng(seed)
+
+        top8_counts = {t: 0 for t in self.teams}
+        playoff_counts = {t: 0 for t in self.teams}
+        elim_counts = {t: 0 for t in self.teams}
+        r16_counts = {t: 0 for t in self.teams}
+        qf_counts = {t: 0 for t in self.teams}
+        sf_counts = {t: 0 for t in self.teams}
+        finalist_counts = {t: 0 for t in self.teams}
+        champ_counts = {t: 0 for t in self.teams}
+
+        pts_accum = {t: [] for t in self.teams}
+        rank_accum = {t: [] for t in self.teams}
+
+        for _ in range(n_simulations):
+            table = self.simulate_one_season(rng)
+            ranked = sorted(
+                table.items(),
+                key=lambda item: (item[1]["points"], item[1]["gd"], item[1]["gf"]),
+                reverse=True
+            )
+            ranked_teams = [item[0] for item in ranked]
+
+            for rank_idx, (team, stats) in enumerate(ranked, 1):
+                pts_accum[team].append(stats["points"])
+                rank_accum[team].append(rank_idx)
+                if rank_idx <= 8:
+                    top8_counts[team] += 1
+                elif rank_idx <= 24:
+                    playoff_counts[team] += 1
+                else:
+                    elim_counts[team] += 1
+
+            # Simulate full knockout bracket for this specific iteration's standings
+            bracket = KnockoutSimulator.simulate_knockout_bracket(ranked_teams, elo_lookup, rng)
+            for t in bracket["r16"]:
+                r16_counts[t] += 1
+            for t in bracket["qf"]:
+                qf_counts[t] += 1
+            for t in bracket["sf"]:
+                sf_counts[t] += 1
+            for t in bracket["finalists"]:
+                finalist_counts[t] += 1
+            champ_counts[bracket["champion"]] += 1
+
+        # Current played matches stats
+        current_stats = {
+            t: {"pj": 0, "points": 0, "gf": 0, "ga": 0, "gd": 0}
+            for t in self.teams
+        }
+        for f in self.fixtures:
+            if f.get("home_goals") is not None and f.get("away_goals") is not None:
+                h, a = f["home_team"], f["away_team"]
+                hg, ag = f["home_goals"], f["away_goals"]
+                if h in current_stats and a in current_stats:
+                    current_stats[h]["pj"] += 1
+                    current_stats[a]["pj"] += 1
+                    current_stats[h]["gf"] += hg
+                    current_stats[h]["ga"] += ag
+                    current_stats[h]["gd"] += (hg - ag)
+                    current_stats[a]["gf"] += ag
+                    current_stats[a]["ga"] += hg
+                    current_stats[a]["gd"] += (ag - hg)
+                    if hg > ag:
+                        current_stats[h]["points"] += 3
+                    elif hg == ag:
+                        current_stats[h]["points"] += 1
+                        current_stats[a]["points"] += 1
+                    else:
+                        current_stats[a]["points"] += 3
+
+        summary_table = []
+        for t in self.teams:
+            avg_pts = np.mean(pts_accum[t]) if pts_accum[t] else 0.0
+            avg_rank = np.mean(rank_accum[t]) if rank_accum[t] else 18.0
+            summary_table.append({
+                "team": t,
+                "current_pj": current_stats[t]["pj"],
+                "current_points": current_stats[t]["points"],
+                "current_gd": current_stats[t]["gd"],
+                "projected_rank": round(float(avg_rank), 1),
+                "expected_points": round(float(avg_pts), 1),
+                "prob_top_8": round(top8_counts[t] / n_simulations * 100, 1),
+                "prob_playoff_9_24": round(playoff_counts[t] / n_simulations * 100, 1),
+                "prob_eliminated": round(elim_counts[t] / n_simulations * 100, 1)
+            })
+        df_table = pd.DataFrame(summary_table).sort_values("projected_rank", ascending=True).reset_index(drop=True)
+
+        summary_bracket = []
+        for t in self.teams:
+            summary_bracket.append({
+                "team": t,
+                "prob_champion": round(champ_counts[t] / n_simulations * 100, 1),
+                "prob_final": round(finalist_counts[t] / n_simulations * 100, 1),
+                "prob_semi": round(sf_counts[t] / n_simulations * 100, 1),
+                "prob_qf": round(qf_counts[t] / n_simulations * 100, 1),
+                "prob_r16": round(r16_counts[t] / n_simulations * 100, 1),
+            })
+        df_bracket = pd.DataFrame(summary_bracket).sort_values("prob_champion", ascending=False).reset_index(drop=True)
+
+        return df_table, df_bracket

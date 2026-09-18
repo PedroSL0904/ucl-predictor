@@ -1,4 +1,4 @@
-﻿"""Domain entities and value objects for UCL predictor 2.0."""
+"""Domain entities and value objects for UCL predictor 2.0."""
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
@@ -76,6 +76,7 @@ class MatchPrediction:
     over_under: Dict[str, float] = field(default_factory=dict)
     btts: Dict[str, float] = field(default_factory=dict)
     top_exact_scores: Dict[str, float] = field(default_factory=dict)
+    conditioned_top_scores: Dict[str, str] = field(default_factory=dict)
     travel_distance_km: float = 0.0
     travel_fatigue: float = 0.0
     edge: Optional[Dict[str, Any]] = None

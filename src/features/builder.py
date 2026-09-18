@@ -1,4 +1,4 @@
-﻿"""Causal feature engineering pipeline for UEFA Champions League 2.0."""
+"""Causal feature engineering pipeline for UEFA Champions League 2.0."""
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -143,6 +143,8 @@ def build_features_matrix(db_path: Optional[Path] = None, save_path: Optional[Pa
             "away_team_id": aid,
             "home_team_name": h_name,
             "away_team_name": a_name,
+            "home_country": row.get("home_country"),
+            "away_country": row.get("away_country"),
             "home_elo": h_elo,
             "away_elo": a_elo,
             "elo_diff": elo_diff,

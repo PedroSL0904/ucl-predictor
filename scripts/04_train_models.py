@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -63,25 +63,28 @@ def train_production_pipeline():
     kf = KFold(n_splits=5, shuffle=True, random_state=42)
     oof_preds = np.zeros((len(df_train), 12))  # 3 cols each for DC, XGB, LGB, Cat
 
-    # Pre-compute DC predictions
-    p_dc_train_list = []
-    for _, row in df_train.iterrows():
-        p_dc, _, _ = dc_model.predict_proba(
-            home_id=int(row["home_team_id"]),
-            away_id=int(row["away_team_id"]),
-            home_elo=row["home_elo"],
-            away_elo=row["away_elo"],
-            is_hostile=(row["is_hostile_venue"] == 1),
-            coef_ratio=row["coef_ratio"],
-            travel_fatigue=row.get("travel_fatigue", 0.0)
-        )
-        p_dc_train_list.append(p_dc)
-    p_dc_train = np.array(p_dc_train_list)
-    oof_preds[:, 0:3] = p_dc_train
-
     for fold, (tr_idx, val_idx) in enumerate(kf.split(X_train, y_train), 1):
-        X_tr_f, y_tr_f, w_tr_f = X_train.iloc[tr_idx], y_train[tr_idx], w_train[tr_idx]
+        df_tr_f = df_train.iloc[tr_idx]
+        df_val_f = df_train.iloc[val_idx]
+        X_tr_f, y_tr_f, w_tr_f = X_train.iloc[tr_idx], y_train[tr_idx], w_train[tr_idx] if w_train is not None else None
         X_val_f = X_train.iloc[val_idx]
+
+        # Fold-specific Dixon-Coles for true OOF
+        dc_fold = UCLDixonColes()
+        dc_fold.fit(df_tr_f)
+        p_dc_fold_list = []
+        for _, row in df_val_f.iterrows():
+            p_dc_f, _, _ = dc_fold.predict_proba(
+                home_team=row["home_team_name"],
+                away_team=row["away_team_name"],
+                home_elo=row["home_elo"],
+                away_elo=row["away_elo"],
+                is_hostile=(row["is_hostile_venue"] == 1),
+                coef_ratio=row["coef_ratio"],
+                travel_fatigue=row.get("travel_fatigue", 0.0)
+            )
+            p_dc_fold_list.append(p_dc_f)
+        oof_preds[val_idx, 0:3] = np.array(p_dc_fold_list)
 
         m_xgb = train_xgb(X_tr_f, y_tr_f, w_tr_f)
         m_lgb = train_lgb(X_tr_f, y_tr_f, w_tr_f)
@@ -109,12 +112,19 @@ def train_production_pipeline():
     joblib.dump(cat_final, settings.MODELS_DIR / "catboost_tuned.joblib")
     print("   All Level-1 models saved to models/.")
 
-    # 5. Evaluate on Validation Test Set (Swiss Stage 2024-2026)
+    # 5. Calibrate via Temperature Scaling on OOF predictions (zero test leakage)
+    print("\n5. Calibrating probabilities via Temperature Scaling on OOF predictions...")
+    oof_stacked = stacking_meta.predict_proba(oof_preds)
+    scaler = TemperatureScaler().fit(oof_stacked, y_train, metric="brier")
+    scaler.save(settings.MODELS_DIR / "temperature_scaler.json")
+    print(f"   Optimal Calibration Temperature T = {scaler.temperature:.3f}")
+
+    # 6. Evaluate on Unseen Validation Test Set (Swiss Stage 2024-2026)
     p_dc_test_list = []
     for _, row in df_test.iterrows():
         p_dc, _, _ = dc_model.predict_proba(
-            home_id=int(row["home_team_id"]),
-            away_id=int(row["away_team_id"]),
+            home_team=row["home_team_name"],
+            away_team=row["away_team_name"],
             home_elo=row["home_elo"],
             away_elo=row["away_elo"],
             is_hostile=(row["is_hostile_venue"] == 1),
@@ -131,13 +141,6 @@ def train_production_pipeline():
     # Combine into meta-matrix for test set
     meta_test = np.hstack([p_dc_test, p_xgb_test, p_lgb_test, p_cat_test])
     p_stacked = stacking_meta.predict_proba(meta_test)
-
-    # 6. Fit Temperature Scaling on Stacked Probabilities
-    print("\n5. Calibrating probabilities via Temperature Scaling...")
-    scaler = TemperatureScaler().fit(p_stacked, y_test, metric="brier")
-    scaler.save(settings.MODELS_DIR / "temperature_scaler.json")
-    print(f"   Optimal Calibration Temperature T = {scaler.temperature:.3f}")
-
     p_final = scaler.transform(p_stacked)
 
     # 7. Metrics calculation

@@ -1,4 +1,4 @@
-﻿"""Dixon-Coles bivariate Poisson model optimized for UEFA Champions League with Multi-Market Derivations."""
+"""Dixon-Coles bivariate Poisson model optimized for UEFA Champions League with Multi-Market Derivations."""
 from __future__ import annotations
 import math
 from typing import Dict, Optional, Tuple, List, Any
@@ -75,14 +75,14 @@ class UCLDixonColes:
 
     def _lambda(
         self,
-        home_id: int,
-        away_id: int,
+        home_team: str | int,
+        away_team: str | int,
         is_hostile: bool = False,
         coef_ratio: float = 1.0,
         travel_fatigue: float = 0.0,
     ) -> Tuple[float, float]:
-        h_s = self.strengths.get(int(home_id), {"attack": 1.0, "defense": 1.0})
-        a_s = self.strengths.get(int(away_id), {"attack": 1.0, "defense": 1.0})
+        h_s = self.strengths.get(str(home_team), {"attack": 1.0, "defense": 1.0})
+        a_s = self.strengths.get(str(away_team), {"attack": 1.0, "defense": 1.0})
 
         lam_h = self.league_avg_home * h_s["attack"] * a_s["defense"]
         lam_a = self.league_avg_away * a_s["attack"] * h_s["defense"]
@@ -151,8 +151,10 @@ class UCLDixonColes:
 
     def predict_proba(
         self,
-        home_id: int,
-        away_id: int,
+        home_team: str | int = "",
+        away_team: str | int = "",
+        home_id: Optional[int] = None,
+        away_id: Optional[int] = None,
         home_elo: Optional[float] = None,
         away_elo: Optional[float] = None,
         is_hostile: bool = False,
@@ -160,7 +162,9 @@ class UCLDixonColes:
         travel_fatigue: float = 0.0,
         max_goals: int = 7,
     ) -> Tuple[np.ndarray, np.ndarray, Tuple[float, float]]:
-        lam_h, lam_a = self._lambda(home_id, away_id, is_hostile, coef_ratio, travel_fatigue)
+        h_t = home_team if home_team != "" else (home_id if home_id is not None else "")
+        a_t = away_team if away_team != "" else (away_id if away_id is not None else "")
+        lam_h, lam_a = self._lambda(h_t, a_t, is_hostile, coef_ratio, travel_fatigue)
 
         if home_elo is not None and away_elo is not None:
             lam_h, lam_a = self._apply_elo_inflation(lam_h, lam_a, home_elo, away_elo)
@@ -216,6 +220,10 @@ class UCLDixonColes:
         scores_list.sort(key=lambda item: item[1], reverse=True)
         top5_scores = {s: round(p * 100, 1) for s, p in scores_list[:5]}
 
+        top_h = [s for s, p in scores_list if int(s.split('-')[0]) > int(s.split('-')[1])]
+        top_d = [s for s, p in scores_list if int(s.split('-')[0]) == int(s.split('-')[1])]
+        top_a = [s for s, p in scores_list if int(s.split('-')[0]) < int(s.split('-')[1])]
+
         return {
             "over_under": {
                 "over_1_5": round(over_1_5, 4),
@@ -229,5 +237,10 @@ class UCLDixonColes:
                 "yes": round(btts_yes, 4),
                 "no": round(1.0 - btts_yes, 4)
             },
-            "top_exact_scores": top5_scores
+            "top_exact_scores": top5_scores,
+            "conditioned_top_scores": {
+                "H": top_h[0] if top_h else "2-1",
+                "D": top_d[0] if top_d else "1-1",
+                "A": top_a[0] if top_a else "1-2"
+            }
         }

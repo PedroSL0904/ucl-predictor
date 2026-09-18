@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Settings:
-    ROOT_DIR: Path = Path("C:/Users/Boutros/ucl-predictor")
+    ROOT_DIR: Path = Path(__file__).resolve().parent.parent
     CONFIG_DIR: Path = ROOT_DIR / "config"
     DATA_DIR: Path = ROOT_DIR / "data"
     RAW_DIR: Path = DATA_DIR / "raw"

@@ -45,56 +45,13 @@ def generate_tournament_readme(season: str = "2026-27", n_sims: int = 2000) -> s
             "away_goals": ag if pd.notna(ag) else None
         })
 
-    # 1. Swiss Stage Simulation
+    # 1 & 2. Full Tournament Simulation (Swiss Phase + Official UEFA Bracket)
     swiss_sim = SwissStageSimulator(sim_fixtures, teams)
-    table_df = swiss_sim.run_simulations(n_simulations=n_sims)
-
-    # 2. Champion & Bracket Simulation
-    champion_counts = {t: 0 for t in teams}
-    finalist_counts = {t: 0 for t in teams}
-    semi_counts = {t: 0 for t in teams}
-    rng = np.random.default_rng(42)
-
-    top_contenders = table_df.head(16)["team"].tolist()
-
-    for _ in range(n_sims):
-        round_16 = top_contenders.copy()
-        rng.shuffle(round_16)
-
-        qf = []
-        for i in range(0, 16, 2):
-            t1, t2 = round_16[i], round_16[i+1]
-            e1, e2 = predictor.elo_mgr.get_elo(t1), predictor.elo_mgr.get_elo(t2)
-            p1 = 1.0 / (1.0 + 10.0 ** (-(e1 - e2) / 400.0))
-            qf.append(t1 if rng.random() < p1 else t2)
-
-        sf = []
-        for i in range(0, 8, 2):
-            t1, t2 = qf[i], qf[i+1]
-            e1, e2 = predictor.elo_mgr.get_elo(t1), predictor.elo_mgr.get_elo(t2)
-            p1 = 1.0 / (1.0 + 10.0 ** (-(e1 - e2) / 400.0))
-            winner = t1 if rng.random() < p1 else t2
-            sf.append(winner)
-            semi_counts[winner] += 1
-
-        f1, f2 = sf[0], sf[1]
-        finalist_counts[f1] += 1
-        finalist_counts[f2] += 1
-
-        e1, e2 = predictor.elo_mgr.get_elo(f1), predictor.elo_mgr.get_elo(f2)
-        p1 = 1.0 / (1.0 + 10.0 ** (-(e1 - e2) / 400.0))
-        champ = f1 if rng.random() < p1 else f2
-        champion_counts[champ] += 1
-
-    champ_df = pd.DataFrame([
-        {
-            "team": t,
-            "prob_champion": round(champion_counts[t] / n_sims * 100, 1),
-            "prob_final": round(finalist_counts[t] / n_sims * 100, 1),
-            "prob_semi": round(semi_counts[t] / n_sims * 100, 1),
-        }
-        for t in teams
-    ]).sort_values("prob_champion", ascending=False).reset_index(drop=True)
+    table_df, champ_df = swiss_sim.run_full_tournament_simulations(
+        elo_lookup=lambda t: predictor.elo_mgr.get_elo(t),
+        n_simulations=n_sims,
+        seed=42
+    )
 
     # 3. Next Matchday Predictions (Upcoming unplayed round)
     md_preds = predict_ucl_matchday(season=season, matchday=None, predictor=predictor)
@@ -171,20 +128,10 @@ def generate_tournament_readme(season: str = "2026-27", n_sims: int = 2000) -> s
         prob_str = f"L {probs['H']*100:.0f}% / E {probs['D']*100:.0f}% / V {probs['A']*100:.0f}%"
         pick_label = "Local" if p.get("prediction") == "H" else ("Empate" if p.get("prediction") == "D" else "Visitante")
         pred = p.get("prediction", "H")
-        scores = p.get("top_exact_scores") or {}
-        aligned = []
-        for s, prob in scores.items():
-            try:
-                sh, sa = map(int, s.split("-"))
-                if pred == "H" and sh > sa:
-                    aligned.append((s, prob))
-                elif pred == "A" and sa > sh:
-                    aligned.append((s, prob))
-                elif pred == "D" and sh == sa:
-                    aligned.append((s, prob))
-            except Exception:
-                pass
-        top_score = aligned[0][0] if aligned else (list(scores.keys())[0] if scores else "1-0")
+        cond_scores = p.get("conditioned_top_scores") or {}
+        top_score = cond_scores.get(pred)
+        if not top_score:
+            top_score = "2-1" if pred == "H" else ("1-2" if pred == "A" else "1-1")
         md.append(f"| **{p.get('home_team')}** vs **{p.get('away_team')}** | `{prob_str}` | **{pick_label}** | `{top_score}` |")
     md.append("")
     md.append("---")

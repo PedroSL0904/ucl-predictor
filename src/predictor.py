@@ -1,4 +1,4 @@
-﻿"""Master inference engine for UCL Predictor 2.0 with Multi-Market & Stacking."""
+"""Master inference engine for UCL Predictor 2.0 with Multi-Market & Stacking."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -34,7 +34,102 @@ class UCLPredictor:
         self.cat_model = None
         self.stacking_meta: Optional[StackingMetaLearner] = None
         self.scaler: Optional[TemperatureScaler] = None
+        self.history_df: pd.DataFrame = pd.DataFrame()
         self._load_models()
+        self._load_history()
+
+    def _load_history(self):
+        if settings.FEATURES_PATH.exists():
+            df = pd.read_parquet(settings.FEATURES_PATH)
+            played = df[df["home_goals"].notna() & df["away_goals"].notna()].copy()
+            played["date"] = pd.to_datetime(played["date"])
+            self.history_df = played[["date", "home_team_name", "away_team_name", "home_goals", "away_goals"]].sort_values("date")
+        else:
+            self.history_df = pd.DataFrame(columns=["date", "home_team_name", "away_team_name", "home_goals", "away_goals"])
+
+    def _compute_dynamic_features(
+        self,
+        home_team: str,
+        away_team: str,
+        match_date: Optional[str] = None
+    ) -> Dict[str, float]:
+        target_date = pd.to_datetime(match_date) if match_date else pd.Timestamp.now()
+
+        def get_team_stats(team: str):
+            if self.history_df.empty:
+                return 1.35, 1.35, 0.0, 1.45, 1.45, 21.0
+
+            mask = (self.history_df["date"] < target_date) & (
+                (self.history_df["home_team_name"] == team) | (self.history_df["away_team_name"] == team)
+            )
+            t_df = self.history_df[mask]
+            if t_df.empty:
+                return 1.35, 1.35, 0.0, 1.45, 1.45, 21.0
+
+            pts_list = []
+            gd_list = []
+            gf_list = []
+            ga_list = []
+            last_date = t_df["date"].iloc[-1]
+
+            for _, r in t_df.iterrows():
+                is_home = (r["home_team_name"] == team)
+                gf = float(r["home_goals"]) if is_home else float(r["away_goals"])
+                ga = float(r["away_goals"]) if is_home else float(r["home_goals"])
+                gd = gf - ga
+                pts = 3.0 if gf > ga else (1.0 if gf == ga else 0.0)
+                pts_list.append(pts)
+                gd_list.append(gd)
+                gf_list.append(gf)
+                ga_list.append(ga)
+
+            last3_pts = pts_list[-3:]
+            last5_pts = pts_list[-5:]
+            last5_gd = gd_list[-5:]
+            last5_gf = gf_list[-5:]
+            last5_ga = ga_list[-5:]
+
+            form_3 = float(np.mean(last3_pts))
+            form_5 = float(np.mean(last5_pts))
+            gd_5 = float(np.mean(last5_gd))
+            gf_5 = float(np.mean(last5_gf))
+            ga_5 = float(np.mean(last5_ga))
+            rest = float(min(60.0, max(1.0, (target_date - last_date).days)))
+
+            return form_3, form_5, gd_5, gf_5, ga_5, rest
+
+        f3_h, f5_h, gd5_h, gf5_h, ga5_h, rest_h = get_team_stats(home_team)
+        f3_a, f5_a, gd5_a, gf5_a, ga5_a, rest_a = get_team_stats(away_team)
+
+        h2h_h_w, h2h_a_w, h2h_d, h2h_tot = 0, 0, 0, 0
+        if not self.history_df.empty:
+            h2h_mask = (self.history_df["date"] < target_date) & (
+                ((self.history_df["home_team_name"] == home_team) & (self.history_df["away_team_name"] == away_team)) |
+                ((self.history_df["home_team_name"] == away_team) & (self.history_df["away_team_name"] == home_team))
+            )
+            h2h_df = self.history_df[h2h_mask]
+            h2h_tot = len(h2h_df)
+            for _, r in h2h_df.iterrows():
+                is_h_home = (r["home_team_name"] == home_team)
+                hg, ag = r["home_goals"], r["away_goals"]
+                if hg == ag:
+                    h2h_d += 1
+                elif (hg > ag and is_h_home) or (ag > hg and not is_h_home):
+                    h2h_h_w += 1
+                else:
+                    h2h_a_w += 1
+
+        return {
+            "form_3_h": f3_h, "form_3_a": f3_a,
+            "form_5_h": f5_h, "form_5_a": f5_a,
+            "gd_5_h": gd5_h, "gd_5_a": gd5_a,
+            "gf_5_h": gf5_h, "gf_5_a": gf5_a,
+            "ga_5_h": ga5_h, "ga_5_a": ga5_a,
+            "rest_h": rest_h, "rest_a": rest_a,
+            "rest_diff": rest_h - rest_a,
+            "h2h_h_wins": h2h_h_w, "h2h_a_wins": h2h_a_w,
+            "h2h_draws": h2h_d, "h2h_total": h2h_tot
+        }
 
     def _load_models(self):
         dc_path = self.models_dir / "dixon_coles.joblib"
@@ -103,10 +198,8 @@ class UCLPredictor:
 
         # 3. Level-1: Dixon-Coles Prediction & Multi-Market Derivation
         if self.dixon_coles is not None:
-            h_id = hash(h_canon) % 100000
-            a_id = hash(a_canon) % 100000
             p_dc, score_grid, (lam_h, lam_a) = self.dixon_coles.predict_proba(
-                home_id=h_id, away_id=a_id, home_elo=h_elo, away_elo=a_elo,
+                home_team=h_canon, away_team=a_canon, home_elo=h_elo, away_elo=a_elo,
                 is_hostile=(is_hostile == 1), coef_ratio=coef_ratio, travel_fatigue=fatigue
             )
             multi_markets = UCLDixonColes.derive_multi_markets(score_grid)
@@ -119,7 +212,8 @@ class UCLPredictor:
                 "top_exact_scores": {"2-1": 11.0, "1-1": 10.5, "2-0": 9.5}
             }
 
-        # 4. Level-1: Machine Learning Predictions
+        # 4. Level-1: Machine Learning Predictions (Dynamic causal features)
+        dyn_feats = self._compute_dynamic_features(h_canon, a_canon, match_date)
         feat_dict = {
             "home_elo": h_elo, "away_elo": a_elo, "elo_diff": elo_diff,
             "home_uefa_coef": h_coef, "away_uefa_coef": a_coef,
@@ -128,13 +222,13 @@ class UCLPredictor:
             "home_club_pedigree": h_pedigree, "away_club_pedigree": a_pedigree,
             "pedigree_diff": pedigree_diff, "pedigree_ratio": pedigree_ratio,
             "elo_prob_h": p_h_elo, "elo_prob_d": p_d_elo, "elo_prob_a": p_a_elo,
-            "form_3_h": 1.6, "form_3_a": 1.6,
-            "form_5_h": 1.6, "form_5_a": 1.6,
-            "gd_5_h": 0.2, "gd_5_a": 0.2,
-            "gf_5_h": 1.8, "gf_5_a": 1.5,
-            "ga_5_h": 1.2, "ga_5_a": 1.2,
-            "rest_h": 7, "rest_a": 7, "rest_diff": 0,
-            "h2h_h_wins": 0, "h2h_a_wins": 0, "h2h_draws": 0, "h2h_total": 0,
+            "form_3_h": dyn_feats["form_3_h"], "form_3_a": dyn_feats["form_3_a"],
+            "form_5_h": dyn_feats["form_5_h"], "form_5_a": dyn_feats["form_5_a"],
+            "gd_5_h": dyn_feats["gd_5_h"], "gd_5_a": dyn_feats["gd_5_a"],
+            "gf_5_h": dyn_feats["gf_5_h"], "gf_5_a": dyn_feats["gf_5_a"],
+            "ga_5_h": dyn_feats["ga_5_h"], "ga_5_a": dyn_feats["ga_5_a"],
+            "rest_h": dyn_feats["rest_h"], "rest_a": dyn_feats["rest_a"], "rest_diff": dyn_feats["rest_diff"],
+            "h2h_h_wins": dyn_feats["h2h_h_wins"], "h2h_a_wins": dyn_feats["h2h_a_wins"], "h2h_draws": dyn_feats["h2h_draws"], "h2h_total": dyn_feats["h2h_total"],
             "is_knockout": is_knockout, "is_hostile_venue": is_hostile, "matchday": matchday
         }
         X_df = pd.DataFrame([feat_dict])[FEATURE_COLS]
@@ -196,6 +290,7 @@ class UCLPredictor:
             over_under=multi_markets.get("over_under", {}),
             btts=multi_markets.get("btts", {}),
             top_exact_scores=multi_markets.get("top_exact_scores", {}),
+            conditioned_top_scores=multi_markets.get("conditioned_top_scores", {}),
             travel_distance_km=round(dist_km, 1),
             travel_fatigue=round(fatigue, 2),
             edge=edge_eval

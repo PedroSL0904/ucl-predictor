@@ -1,4 +1,4 @@
-﻿"""Comprehensive test suite for UCL Predictor 2.0."""
+"""Comprehensive test suite for UCL Predictor 2.0."""
 import pytest
 import numpy as np
 from src.models.statistical import UCLDixonColes, dc_tau
@@ -96,3 +96,39 @@ def test_master_predictor_full():
     assert len(pred.top_exact_scores) == 5
     assert pred.travel_distance_km > 0
     assert pred.edge is not None
+
+def test_full_uefa_knockout_simulation():
+    from src.simulation.bracket import KnockoutSimulator
+    teams = [f"Team_{i:02d}" for i in range(1, 37)]
+    elos = {t: 1800 - i * 15 for i, t in enumerate(teams)}
+    rng = np.random.default_rng(42)
+
+    bracket_res = KnockoutSimulator.simulate_knockout_bracket(
+        ranked_teams=teams,
+        elo_lookup=lambda t: elos[t],
+        rng=rng
+    )
+    assert len(bracket_res["playoffs"]) == 16
+    assert len(bracket_res["r16"]) == 16
+    assert len(bracket_res["qf"]) == 8
+    assert len(bracket_res["sf"]) == 4
+    assert len(bracket_res["finalists"]) == 2
+    assert bracket_res["champion"] in bracket_res["finalists"]
+
+def test_dynamic_causal_features():
+    predictor = UCLPredictor()
+    dyn = predictor._compute_dynamic_features("Real Madrid", "Barcelona", "2024-05-01")
+    assert "form_3_h" in dyn
+    assert "form_5_h" in dyn
+    assert "gd_5_h" in dyn
+    assert "rest_h" in dyn
+    assert "h2h_total" in dyn
+    assert dyn["rest_h"] >= 1.0
+
+def test_elo_time_series_resolution():
+    mgr = ClubEloManager()
+    # Historic vs recent lookup for Atletico
+    elo_2024 = mgr.get_elo("Atletico", match_date="2024-01-01")
+    elo_now = mgr.get_elo("Atletico")
+    assert elo_2024 > 1750
+    assert elo_now > 1750

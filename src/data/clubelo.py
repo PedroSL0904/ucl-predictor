@@ -199,14 +199,59 @@ TEAM_ALIASES = {
 }
 
 
-MANUAL_ELOS = {
-    "real betis": 1745.0,
-    "aek athens": 1590.0,
-    "bodo/glimt": 1615.0,
-    "sabah fc": 1480.0,
-    "viking": 1540.0,
-    "como": 1780.0,
-    "lask": 1510.0,
+CANONICAL_TO_CSV = {
+    "atletico": "ath madrid",
+    "sporting": "sp lisbon",
+    "manchester united": "man united",
+    "real betis": "betis",
+    "bodo/glimt": "bodoe glimt",
+    "bayern munich": "bayern munich",
+    "psv eindhoven": "psv eindhoven",
+    "inter": "inter",
+    "juventus": "juventus",
+    "lille": "lille",
+    "porto": "porto",
+    "real madrid": "real madrid",
+    "barcelona": "barcelona",
+    "villarreal": "villarreal",
+    "como": "como",
+    "viking": "viking",
+    "lask": "lask",
+    "lens": "lens",
+    "roma": "roma",
+    "napoli": "napoli",
+    "arsenal": "arsenal",
+    "man city": "man city",
+    "liverpool": "liverpool",
+    "dortmund": "dortmund",
+    "leverkusen": "leverkusen",
+    "rb leipzig": "rb leipzig",
+    "stuttgart": "stuttgart",
+    "aston villa": "aston villa",
+    "paris sg": "paris sg",
+    "monaco": "monaco",
+    "feyenoord": "feyenoord",
+    "celtic": "celtic",
+    "club brugge": "club brugge",
+    "bologna": "bologna",
+    "girona": "girona",
+    "brest": "brest",
+    "atalanta": "atalanta",
+    "milan": "milan",
+    "benfica": "benfica",
+    "galatasaray": "galatasaray",
+}
+
+CALIBRATED_FALLBACK_ELOS = {
+    "shakhtar donetsk": 1690.0,
+    "slavia praha": 1680.0,
+    "sparta praha": 1650.0,
+    "dinamo zagreb": 1620.0,
+    "crvena zvezda": 1610.0,
+    "aek athens": 1600.0,
+    "young boys": 1590.0,
+    "slovan bratislava": 1510.0,
+    "sabah fc": 1460.0,
 }
 
 
@@ -232,10 +277,21 @@ class ClubEloManager:
             return
         df = pd.read_csv(self.elo_path)
         df["date"] = pd.to_datetime(df["date"])
+        raw_groups = {}
         for club, group in df.groupby("club"):
             normalized_club = strip_accents(club.lower()).strip()
-            self.elo_cache[normalized_club] = group.sort_values("date")
-            self.current_ratings[normalized_club] = float(group.iloc[-1]["elo"])
+            sorted_grp = group.sort_values("date")
+            raw_groups[normalized_club] = sorted_grp
+            self.elo_cache[normalized_club] = sorted_grp
+            self.current_ratings[normalized_club] = float(sorted_grp.iloc[-1]["elo"])
+
+        # Map canonical aliases directly into elo_cache and current_ratings
+        for canon_name, csv_name in CANONICAL_TO_CSV.items():
+            csv_norm = strip_accents(csv_name.lower()).strip()
+            if csv_norm in raw_groups:
+                grp = raw_groups[csv_norm]
+                self.elo_cache[canon_name] = grp
+                self.current_ratings[canon_name] = float(grp.iloc[-1]["elo"])
 
     def canonical_name(self, raw_name: str) -> str:
         clean = strip_accents(raw_name).lower().strip()
@@ -254,10 +310,8 @@ class ClubEloManager:
     def get_elo(self, team_name: str, match_date: Optional[str] = None, country: Optional[str] = None) -> float:
         c_name = self.canonical_name(team_name)
         norm_key = strip_accents(c_name).lower().strip()
-        
-        if norm_key in MANUAL_ELOS and match_date is None:
-            return MANUAL_ELOS[norm_key]
 
+        # 1. Check dynamic Elo cache (historical CSV)
         if norm_key in self.elo_cache:
             history = self.elo_cache[norm_key]
             if match_date is not None:
@@ -266,11 +320,17 @@ class ClubEloManager:
                 if not past.empty:
                     return float(past.iloc[-1]["elo"])
             return float(history.iloc[-1]["elo"])
-            
+
+        # 2. Check calibrated fallback for unlisted leagues
+        if norm_key in CALIBRATED_FALLBACK_ELOS:
+            return float(CALIBRATED_FALLBACK_ELOS[norm_key])
+
+        # 3. Check current ratings dictionary
         if norm_key in self.current_ratings:
             return self.current_ratings[norm_key]
-            
+
+        # 4. Fallback to UEFA country coefficient baseline
         if country:
             return self.get_base_elo_by_country(country)
-            
+
         return 1550.0

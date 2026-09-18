@@ -1,4 +1,4 @@
-﻿"""Machine Learning model trainers (XGBoost, LightGBM, CatBoost) for UCL 2.0."""
+"""Machine Learning model trainers (XGBoost, LightGBM, CatBoost) for UCL 2.0."""
 from __future__ import annotations
 from typing import List, Tuple, Dict, Any
 import numpy as np
@@ -24,14 +24,14 @@ FEATURE_COLS = [
     "is_knockout", "is_hostile_venue", "matchday"
 ]
 
-def prepare_xy(df: pd.DataFrame) -> Tuple[pd.DataFrame, np.ndarray, np.ndarray]:
+def prepare_xy(df: pd.DataFrame, use_sample_weight: bool = False) -> Tuple[pd.DataFrame, np.ndarray, Optional[np.ndarray]]:
     clean = df.dropna(subset=["target"]).copy()
     X = clean[FEATURE_COLS].copy()
     y = clean["target"].astype(int).values
-    sample_weights = compute_sample_weight(class_weight="balanced", y=y)
+    sample_weights = compute_sample_weight(class_weight="balanced", y=y) if use_sample_weight else None
     return X, y, sample_weights
 
-def train_xgb(X_train: pd.DataFrame, y_train: np.ndarray, sample_weights: np.ndarray) -> xgb.XGBClassifier:
+def train_xgb(X_train: pd.DataFrame, y_train: np.ndarray, sample_weights: Optional[np.ndarray] = None) -> xgb.XGBClassifier:
     model = xgb.XGBClassifier(
         n_estimators=180,
         max_depth=4,
@@ -46,7 +46,7 @@ def train_xgb(X_train: pd.DataFrame, y_train: np.ndarray, sample_weights: np.nda
     model.fit(X_train, y_train, sample_weight=sample_weights)
     return model
 
-def train_lgb(X_train: pd.DataFrame, y_train: np.ndarray, sample_weights: np.ndarray) -> lgb.LGBMClassifier:
+def train_lgb(X_train: pd.DataFrame, y_train: np.ndarray, sample_weights: Optional[np.ndarray] = None) -> lgb.LGBMClassifier:
     model = lgb.LGBMClassifier(
         n_estimators=170,
         max_depth=4,
@@ -61,7 +61,7 @@ def train_lgb(X_train: pd.DataFrame, y_train: np.ndarray, sample_weights: np.nda
     model.fit(X_train, y_train, sample_weight=sample_weights)
     return model
 
-def train_catboost(X_train: pd.DataFrame, y_train: np.ndarray, sample_weights: np.ndarray) -> CatBoostClassifier:
+def train_catboost(X_train: pd.DataFrame, y_train: np.ndarray, sample_weights: Optional[np.ndarray] = None) -> CatBoostClassifier:
     model = CatBoostClassifier(
         iterations=200,
         depth=4,
