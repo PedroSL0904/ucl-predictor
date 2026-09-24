@@ -1,4 +1,4 @@
-﻿import os
+import os
 import sys
 import urllib.request
 from pathlib import Path
@@ -6,7 +6,9 @@ from tqdm import tqdm
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-ROOT = Path("C:/Users/Boutros/ucl-predictor")
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 RAW_DIR = ROOT / "data" / "raw"
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 OPENFOOTBALL_DIR = RAW_DIR / "openfootball"

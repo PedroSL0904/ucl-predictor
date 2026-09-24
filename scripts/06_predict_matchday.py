@@ -1,6 +1,10 @@
-﻿import sys
+import sys
 import argparse
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -9,7 +13,7 @@ from src.matchday import predict_ucl_matchday, format_matchday_predictions
 
 def main():
     parser = argparse.ArgumentParser(description="Predict UEFA Champions League matchdays and single games.")
-    parser.add_argument("--season", type=str, default="2024-25", help="UCL season (e.g. 2024-25)")
+    parser.add_argument("--season", type=str, default="2026-27", help="UCL season (e.g. 2026-27)")
     parser.add_argument("--matchday", type=int, default=1, help="Matchday number (1 to 8, or knockout rounds)")
     parser.add_argument("--format", type=str, default="detailed", choices=["compact", "detailed", "portfolio", "multimarket"], help="Output format")
     parser.add_argument("--home", type=str, default=None, help="Custom single match home team")

@@ -1,13 +1,21 @@
-﻿"""Automated end-to-end retraining script for UCL Predictor 2.0."""
+"""Automated end-to-end retraining script for UCL Predictor 2.0."""
 import sys
+import importlib
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-from scripts.01_download_data import *
-from scripts.02_build_database import build_database
+build_db_mod = importlib.import_module("scripts.02_build_database")
+build_database = build_db_mod.build_database
+
 from src.features.builder import build_features_matrix
-from scripts.04_train_models import train_production_pipeline
+
+train_mod = importlib.import_module("scripts.04_train_models")
+train_production_pipeline = train_mod.train_production_pipeline
 
 def retrain_all():
     print("=======================================================")

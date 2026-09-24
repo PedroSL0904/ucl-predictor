@@ -132,3 +132,41 @@ def test_elo_time_series_resolution():
     elo_now = mgr.get_elo("Atletico")
     assert elo_2024 > 1750
     assert elo_now > 1750
+
+def test_uefa_seed_separation():
+    from src.simulation.bracket import KnockoutSimulator
+    teams = [f"Team_{i:02d}" for i in range(1, 37)]
+    # Give team 1 and 2 huge Elo so they always win
+    elos = {t: 1500 for t in teams}
+    elos[teams[0]] = 3000.0  # Seed 1
+    elos[teams[1]] = 3000.0  # Seed 2
+
+    rng = np.random.default_rng(42)
+    bracket_res = KnockoutSimulator.simulate_knockout_bracket(
+        ranked_teams=teams,
+        elo_lookup=lambda t: elos[t],
+        rng=rng
+    )
+    # Both must reach the final because they are in opposite halves
+    assert teams[0] in bracket_res["finalists"]
+    assert teams[1] in bracket_res["finalists"]
+
+def test_unplayed_matchday_formatting():
+    from src.matchday import format_matchday_predictions
+    unplayed_pred = [{
+        "season": "2026-27",
+        "matchday": 2,
+        "home_team": "Real Madrid",
+        "away_team": "Barcelona",
+        "probs": {"H": 0.45, "D": 0.25, "A": 0.30},
+        "prediction": "H",
+        "double_chance": "1X",
+        "double_chance_prob": 0.70,
+        "safety_tier": "Firme",
+        "actual_home_goals": float("nan"),
+        "actual_away_goals": float("nan"),
+        "actual_outcome": None
+    }]
+    output = format_matchday_predictions(unplayed_pred, format_type="detailed")
+    assert "Real Madrid" in output
+    assert "Real:" not in output

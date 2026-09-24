@@ -1,6 +1,11 @@
-"""Automated Living README Generator for UEFA Champions League Forecast."""
+import sys
 from datetime import datetime
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 import numpy as np
 import pandas as pd
 
@@ -34,7 +39,15 @@ def generate_tournament_readme(season: str = "2026-27", n_sims: int = 2000) -> s
         if pd.notna(hg) and pd.notna(ag):
             finished_count += 1
 
-        pred = predictor.predict_match(h, a, match_date=str(row["date"])[:10])
+        pred = predictor.predict_match(
+            home_team=h,
+            away_team=a,
+            match_date=str(row["date"])[:10],
+            home_country=row.get("home_country"),
+            away_country=row.get("away_country"),
+            stage=row.get("stage", "League Phase"),
+            matchday=row.get("matchday", 1)
+        )
         sim_fixtures.append({
             "home_team": h,
             "away_team": a,

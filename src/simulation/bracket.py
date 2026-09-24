@@ -81,20 +81,36 @@ class KnockoutSimulator:
             w = cls.simulate_two_leg_tie(seed, unseed, elo_lookup(seed), elo_lookup(unseed), rng)
             po_winners.append(w)
 
-        # 2. Round of 16 (Top 8 seeded against Play-off winners)
+        # 2. Round of 16: Official UEFA seeded bracket tree
+        # Half A: Seeds 1 vs PO, 8 vs PO, 4 vs PO, 5 vs PO
+        # Half B: Seeds 2 vs PO, 7 vs PO, 3 vs PO, 6 vs PO
+        bracket_seeds = [
+            top8[0],  # Seed 1
+            top8[7],  # Seed 8
+            top8[3],  # Seed 4
+            top8[4],  # Seed 5
+            top8[1],  # Seed 2
+            top8[6],  # Seed 7
+            top8[2],  # Seed 3
+            top8[5],  # Seed 6
+        ]
+
         r16_participants = top8 + po_winners
-        # Shuffle play-off winners to simulate draw against top 8
         shuffled_po_winners = po_winners.copy()
         rng.shuffle(shuffled_po_winners)
 
         qf_participants = []
         for i in range(8):
-            top_seed = top8[i]
+            top_seed = bracket_seeds[i]
             po_opponent = shuffled_po_winners[i]
             w = cls.simulate_two_leg_tie(top_seed, po_opponent, elo_lookup(top_seed), elo_lookup(po_opponent), rng)
             qf_participants.append(w)
 
         # 3. Quarter-finals (8 teams, 2-legged ties)
+        # Match 0: QF1 (Winner 1 vs Winner 8)
+        # Match 1: QF2 (Winner 4 vs Winner 5)
+        # Match 2: QF3 (Winner 2 vs Winner 7)
+        # Match 3: QF4 (Winner 3 vs Winner 6)
         sf_participants = []
         for i in range(0, 8, 2):
             t1, t2 = qf_participants[i], qf_participants[i+1]
@@ -102,6 +118,8 @@ class KnockoutSimulator:
             sf_participants.append(w)
 
         # 4. Semi-finals (4 teams, 2-legged ties)
+        # SF1: Winner QF1 vs Winner QF2 (Path A)
+        # SF2: Winner QF3 vs Winner QF4 (Path B)
         finalists = []
         for i in range(0, 4, 2):
             t1, t2 = sf_participants[i], sf_participants[i+1]

@@ -86,7 +86,7 @@ def format_matchday_predictions(predictions: List[Dict[str, Any]], format_type: 
         for i, p in enumerate(predictions, 1):
             probs = p["probs"]
             actual_str = ""
-            if p.get("actual_home_goals") is not None and p.get("actual_away_goals") is not None:
+            if pd.notna(p.get("actual_home_goals")) and pd.notna(p.get("actual_away_goals")):
                 hit = "✅" if p["prediction"] == p["actual_outcome"] else ("🛡️" if (
                     (p["double_chance"] == "1X" and p["actual_outcome"] in ["H", "D"]) or
                     (p["double_chance"] == "X2" and p["actual_outcome"] in ["D", "A"]) or

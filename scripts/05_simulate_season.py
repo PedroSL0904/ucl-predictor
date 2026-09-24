@@ -1,6 +1,11 @@
-﻿"""Monte Carlo simulation of the 36-team Champions League season and bracket."""
+"""Monte Carlo simulation of the 36-team Champions League season and bracket."""
 import sys
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 import pandas as pd
 import numpy as np
 
@@ -11,7 +16,7 @@ from src.predictor import UCLPredictor
 from src.simulation.swiss_stage import SwissStageSimulator
 from src.simulation.bracket import KnockoutSimulator
 
-def run_ucl_simulation(season: str = "2024-25", n_sims: int = 1000):
+def run_ucl_simulation(season: str = "2026-27", n_sims: int = 1000):
     print(f"\n=======================================================")
     print(f"🎲 SIMULATING UEFA CHAMPIONS LEAGUE ({season}) 🎲")
     print(f"Running {n_sims} Monte Carlo iterations...")
