@@ -78,7 +78,8 @@ def generate_tournament_readme(season: str = "2026-27", n_sims: int = 2000) -> s
     md.append("Pronóstico probabilístico y simulador del torneo completo de la UEFA Champions League, actualizado dinámicamente conforme avanza la competición.")
     md.append("")
     md.append(f"- **Temporada**: {season}")
-    md.append(f"- **Progreso del Torneo**: {finished_count} de {len(season_matches)} partidos computados (Jornada 1 concluida)")
+    completed_md = finished_count // 18
+    md.append(f"- **Progreso del Torneo**: {finished_count} de {len(season_matches)} partidos computados (Jornada {completed_md} concluida)")
     md.append(f"- **Ultima Actualizacion**: `{now_str}`")
     md.append("")
     md.append("---")
