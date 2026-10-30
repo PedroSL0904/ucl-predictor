@@ -52,29 +52,29 @@
 
 ▪ League, Matchday 3
   Tue Oct 20 2026
-    21:00  Club Brugge KV (BEL) v SK Slavia Praha (CZE)
-    21:00  AS Roma (ITA) v Villarreal CF (ESP)
-    21:00  Real Betis (ESP) v Sporting Clube de Portugal (POR)
-    21:00  Real Madrid CF (ESP) v RB Leipzig (GER)
-    21:00  FK Bodø/Glimt (NOR) v RC Lens (FRA)
-    21:00  Manchester United FC (ENG) v Manchester City FC (ENG)
-    21:00  FC Barcelona (ESP) v VfB Stuttgart (GER)
-    21:00  Liverpool FC (ENG) v Fenerbahçe SK (TUR)
-    21:00  FC Porto (POR) v Como 1907 (ITA)
+    18:45  Sabah FC (AZE)          v Borussia Dortmund (GER)           1-2 (0-1)
+           Fenerbahçe SK (TUR)     v SK Slavia Praha (CZE)             2-2 (1-1)
+    21:00  Paris Saint-Germain FC (FRA) v FC Barcelona (ESP)           4-2 (2-1)
+           Manchester City FC (ENG) v AEK Athens (GRE)                 5-1 (3-0)
+           SSC Napoli (ITA)        v FK Bodø/Glimt (NOR)               4-3 (2-1)
+           FC Porto (POR)          v PSV (NED)                         0-1 (0-0)
+           AS Roma (ITA)           v ŠK Slovan Bratislava (SVK)        4-0 (2-0)
+           Liverpool FC (ENG)      v Villarreal CF (ESP)               4-3 (2-1)
+           VfB Stuttgart (GER)     v Club Atlético de Madrid (ESP)     1-1 (1-0)
   Wed Oct 21
-    21:00  Borussia Dortmund (GER) v Feyenoord Rotterdam (NED)
-    21:00  SSC Napoli (ITA) v Paris Saint-Germain FC (FRA)
-    21:00  PSV (NED) v Lille OSC (FRA)
-    21:00  Aston Villa FC (ENG) v AEK Athens (GRE)
-    21:00  FC Bayern München (GER) v FC Internazionale Milano (ITA)
-    21:00  Arsenal FC (ENG) v FK Shakhtar Donetsk (UKR)
-    21:00  ŠK Slovan Bratislava (SVK) v Club Atlético de Madrid (ESP)
-    21:00  LASK (AUT) v Sabah FC (AZE)
-    21:00  Viking FK (NOR) v Galatasaray SK (TUR)
+    18:45  Como 1907 (ITA)         v Manchester United FC (ENG)        4-1 (2-0)
+           Lille OSC (FRA)         v Galatasaray SK (TUR)              2-4 (1-2)
+    21:00  Sporting Clube de Portugal (POR) v LASK (AUT)               2-3 (1-1)
+           Real Betis (ESP)        v Feyenoord Rotterdam (NED)         1-0 (0-0)
+           FC Internazionale Milano (ITA) v FK Shakhtar Donetsk (UKR)  1-0 (1-0)
+           FC Bayern München (GER) v Arsenal FC (ENG)                  2-2 (1-1)
+           Aston Villa FC (ENG)    v Viking FK (NOR)                   3-1 (1-0)
+           Club Brugge KV (BEL)    v RC Lens (FRA)                     3-0 (1-0)
+           Real Madrid CF (ESP)    v RB Leipzig (GER)                  4-1 (2-0)
 
 ▪ League, Matchday 4
   Tue Nov 3 2026
-    21:00  Viking FK (NOR) v FK Bodø/Glimt (NOR)
+    21:00  Galatasaray SK (TUR) v Viking FK (NOR)
     21:00  Paris Saint-Germain FC (FRA) v AEK Athens (GRE)
     21:00  Manchester City FC (ENG) v Como 1907 (ITA)
     21:00  FC Bayern München (GER) v AS Roma (ITA)
@@ -91,7 +91,7 @@
     21:00  LASK (AUT) v Aston Villa FC (ENG)
     21:00  FK Shakhtar Donetsk (UKR) v Club Atlético de Madrid (ESP)
     21:00  RB Leipzig (GER) v RC Lens (FRA)
-    21:00  Galatasaray SK (TUR) v Lille OSC (FRA)
+    21:00  Lille OSC (FRA) v FK Bodø/Glimt (NOR)
     21:00  VfB Stuttgart (GER) v Villarreal CF (ESP)
 
 ▪ League, Matchday 5
@@ -118,7 +118,7 @@
 
 ▪ League, Matchday 6
   Tue Dec 8 2026
-    21:00  FC Barcelona (ESP) v Paris Saint-Germain FC (FRA)
+    21:00  FC Barcelona (ESP) v SSC Napoli (ITA)
     21:00  FC Internazionale Milano (ITA) v Manchester United FC (ENG)
     21:00  ŠK Slovan Bratislava (SVK) v FK Shakhtar Donetsk (UKR)
     21:00  Galatasaray SK (TUR) v Villarreal CF (ESP)
@@ -133,9 +133,9 @@
     21:00  AEK Athens (GRE) v Como 1907 (ITA)
     21:00  Aston Villa FC (ENG) v VfB Stuttgart (GER)
     21:00  Manchester City FC (ENG) v LASK (AUT)
-    21:00  Arsenal FC (ENG) v FC Bayern München (GER)
-    21:00  FK Bodø/Glimt (NOR) v SSC Napoli (ITA)
-    21:00  PSV (NED) v FC Porto (POR)
+    21:00  FC Porto (POR) v Arsenal FC (ENG)
+    21:00  Paris Saint-Germain FC (FRA) v FK Bodø/Glimt (NOR)
+    21:00  PSV (NED) v FC Bayern München (GER)
     21:00  Liverpool FC (ENG) v Borussia Dortmund (GER)
 
 ▪ League, Matchday 7
@@ -163,7 +163,7 @@
 ▪ League, Matchday 8
   Wed Jan 27 2027
     21:00  Arsenal FC (ENG) v Paris Saint-Germain FC (FRA)
-    21:00  Sabah FC (AZE) v Club Atlético de Madrid (ESP)
+    21:00  Aston Villa FC (ENG) v Sabah FC (AZE)
     21:00  Manchester City FC (ENG) v Liverpool FC (ENG)
     21:00  FK Bodø/Glimt (NOR) v SK Slavia Praha (CZE)
     21:00  LASK (AUT) v FC Bayern München (GER)
@@ -172,7 +172,7 @@
     21:00  RC Lens (FRA) v VfB Stuttgart (GER)
     21:00  Borussia Dortmund (GER) v PSV (NED)
   Wed Jan 27
-    21:00  Aston Villa FC (ENG) v Viking FK (NOR)
+    21:00  Club Atlético de Madrid (ESP) v Viking FK (NOR)
     21:00  Galatasaray SK (TUR) v FC Internazionale Milano (ITA)
     21:00  Manchester United FC (ENG) v Sporting Clube de Portugal (POR)
     21:00  Feyenoord Rotterdam (NED) v RB Leipzig (GER)
