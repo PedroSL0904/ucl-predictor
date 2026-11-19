@@ -4,7 +4,7 @@ Pronóstico probabilístico y simulador del torneo completo de la UEFA Champions
 
 - **Temporada**: 2026-27
 - **Progreso del Torneo**: 54 de 144 partidos computados (Jornada 3 concluida)
-- **Ultima Actualizacion**: `2026-11-17 15:38 UTC`
+- **Ultima Actualizacion**: `2026-11-19 15:22 UTC`
 
 ---
 
